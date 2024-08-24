@@ -24,3 +24,11 @@
     opacity: 1;
 }
 
+.collapsible {
+    opacity: 0;
+}
+
+.collapsible.active {
+    transition: 0.3s;
+    opacity: 100;
+}

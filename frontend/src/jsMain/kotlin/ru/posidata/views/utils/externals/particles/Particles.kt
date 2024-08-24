@@ -6,7 +6,7 @@
 @file:JsModule("react-tsparticles")
 @file:JsNonModule
 
-package ru.thetax.views.utils.externals.particles
+package ru.posidata.views.utils.externals.particles
 
 import react.*
 

@@ -10,7 +10,7 @@ import ru.posidata.views.utils.internals.Selection
 import ru.posidata.views.utils.internals.Selection.QUESTION
 import ru.posidata.views.utils.internals.Selection.ANSWER
 import ru.posidata.views.utils.internals.Selection.RESULTS
-import ru.thetax.views.utils.externals.particles.Particles
+import ru.posidata.views.utils.externals.particles.Particles
 import web.cssom.*
 
 val mainView = FC {
