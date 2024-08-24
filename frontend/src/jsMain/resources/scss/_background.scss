@@ -1,12 +1,34 @@
-#gradient {
-    background: -webkit-linear-gradient(0deg, rgb(70, 80, 170),  rgb(49, 79, 111)); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(0deg, rgb(70, 80, 170),  rgb(49, 79, 111)); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(0deg, rgb(70, 80, 170),  rgb(49, 79, 111)); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(0deg, rgb(70, 80, 170),  rgb(49, 79, 111)); /* Standard syntax */
+$font-family-sans-serif: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", 'Noto Color Emoji' !default;
+
+#back {
+    background: -webkit-linear-gradient(0deg, rgb(0, 85, 102), rgb(0, 55, 71)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(0deg, rgb(0, 85, 102), rgb(0, 55, 71)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(0deg, rgb(0, 85, 102), rgb(0, 55, 71)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(0deg, rgb(0, 85, 102), rgb(0, 55, 71)); /* Standard syntax */
+}
+
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: -webkit-linear-gradient(0deg, rgb(114, 206, 224),  rgb(114, 206, 224)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(0deg, rgb(114, 206, 224),  rgb(114, 206, 224)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(0deg, rgb(114, 206, 224),  rgb(114, 206, 224)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(0deg, rgb(114, 206, 224),  rgb(114, 206, 224)); /* Standard syntax */
+    font-family: "Nunito", sans-serif;
+}
+
+.bg-success-light {
+    background-color: rgb(80, 169, 128);
 }
 
 .full-width-container {
     width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
 }

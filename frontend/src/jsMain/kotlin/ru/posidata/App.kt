@@ -17,7 +17,6 @@ import react.router.dom.RouterProvider
 import react.router.dom.createBrowserRouter
 import ru.posidata.views.components.errorBoundary
 import ru.posidata.views.main.mainView
-import ru.posidata.views.utils.externals.i18n.initI18n
 
 
 /**
@@ -26,17 +25,17 @@ import ru.posidata.views.utils.externals.i18n.initI18n
 @JsExport
 @OptIn(ExperimentalJsExport::class)
 val App: FC<Props> = FC {
-        RouterProvider {
-            router = createBrowserRouter(
-                routes = arrayOf(
-                    jso {
-                        path = "/"
-                        element = mainView.create()
-                        errorElement = errorBoundary.create()
-                    }
-                )
+    RouterProvider {
+        router = createBrowserRouter(
+            routes = arrayOf(
+                jso {
+                    path = "/"
+                    element = mainView.create()
+                    errorElement = errorBoundary.create()
+                }
             )
-        }
+        )
+    }
 }
 
 fun main() {
@@ -51,7 +50,6 @@ fun main() {
     kotlinext.js.require<dynamic>("bootstrap")
     /*    ReactModal.setAppElement(document.getElementById("wrapper") as HTMLElement)  // required for accessibility in react-modal */
 
-    initI18n()
     val mainDiv = document.getElementById("wrapper") as HTMLElement
     createRoot(mainDiv).render(App.create())
 }

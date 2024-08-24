@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.js.inline.clean.removeDuplicateImports
-
 plugins {
     kotlin("multiplatform") version ("2.0.0")
 }
@@ -65,15 +63,16 @@ kotlin {
             // ====== font awesome ======
             implementation(npm("@fortawesome/fontawesome-svg-core", "6.5.2"))
             implementation(npm("@fortawesome/free-solid-svg-icons", "6.5.2"))
+            implementation(npm("@fortawesome/free-regular-svg-icons", "6.5.2"))
             implementation(npm("@fortawesome/free-brands-svg-icons", "6.5.2"))
+            implementation(npm("@fortawesome/fontawesome-free", "6.5.2"))
             implementation(npm("@fortawesome/react-fontawesome", "0.2.2"))
-            // ====== translation ======
-            implementation(npm("i18next", "^23.12.2"))
-            implementation(npm("react-i18next", "^15.0.0"))
-            implementation(npm("i18next-http-backend", "^2.5.2"))
+            // ====== cookies ======
             implementation(npm("js-cookie", "^3.0.5"))
             // ====== animation =========
             implementation(npm("animate.css", "^4.1.1"))
+            implementation(npm("react-tsparticles", "1.42.1"))
+            implementation(npm("tsparticles", "2.1.3"))
         }
     }
 }
