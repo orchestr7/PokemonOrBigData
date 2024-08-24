@@ -61,7 +61,7 @@ val answerCard = FC<AnswerProps> { props ->
                     img {
                         src = "img/" +
                                 "${if (pokemon.type == POKEMON) "pokemons" else "bigdata"}/" +
-                                "${pokemon.name}.${if (pokemon.type == POKEMON) "jpeg" else "png"}"
+                                "${pokemon.name}-min.${if (pokemon.type == POKEMON) "jpeg" else "png"}"
                         style = jso {
                             width = "100%".unsafeCast<Width>()
                             borderRadius = "40px 40px 40px 40px".unsafeCast<BorderRadius>()
