@@ -9,7 +9,9 @@ import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.span
 import web.cssom.*
 
-
+/**
+ * Wrapper for css style for a glowing neon text, see .glow.scss
+ */
 fun ChildrenBuilder.neonLightingText(input: String) {
     button {
         className = ClassName("glowing-btn")
@@ -19,4 +21,3 @@ fun ChildrenBuilder.neonLightingText(input: String) {
         }
     }
 }
-

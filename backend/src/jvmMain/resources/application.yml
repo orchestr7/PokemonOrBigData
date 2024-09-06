@@ -1,0 +1,8 @@
+spring:
+  application:
+    name:
+      backend
+
+telegram:
+  bot:
+    token:

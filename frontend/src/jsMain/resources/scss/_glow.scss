@@ -10,6 +10,58 @@
   box-sizing: border-box;
 }
 
+// ======= Just a glowing button and text ===
+@keyframes text-flicker {
+  0% {
+    opacity: 0.1;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  8% {
+    opacity: 0.1;
+  }
+
+  9% {
+    opacity: 1;
+  }
+
+  12% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+  72% {
+    opacity: 0.2;
+  }
+
+  77% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@media only screen and (max-width: 250px) {
+  .glowing-btn{
+    font-size: 1em;
+  }
+}
+
 .glowing-btn {
   cursor: default;
   position: relative;
@@ -73,6 +125,8 @@
   transition: opacity 100ms linear;
 }
 
+// ======= Style of buttons for selection ===
+
 .logo-main:hover .glowing-btn {
   color: rgba(0, 0, 0, 0.8);
   text-shadow: none;
@@ -82,8 +136,6 @@
 .logo-main:hover .glowing-txt {
   animation: none;
 }
-
-
 
 .logo-main:hover .glowing-btn:before{
   filter: blur(1.5em);
@@ -95,62 +147,7 @@
 }
 
 
-@keyframes text-flicker {
-  0% {
-    opacity: 0.1;
-  }
-
-  2% {
-    opacity: 1;
-  }
-
-  8% {
-    opacity: 0.1;
-  }
-
-  9% {
-    opacity: 1;
-  }
-
-  12% {
-    opacity: 0.1;
-  }
-  20% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.3;
-  }
-  30% {
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 0.7;
-  }
-  72% {
-    opacity: 0.2;
-  }
-
-  77% {
-    opacity: 0.9;
-  }
-  100% {
-    opacity: 0.9;
-  }
-}
-
-@media only screen and (max-width: 250px) {
-  .glowing-btn{
-    font-size: 1em;
-  }
-}
-
 // ============= this is a greyscale effect for pictures
-a:hover {
-	text-decoration: none;
-}
-
 .img-glow1 {
     cursor: pointer;
     -webkit-filter: brightness(80%);
