@@ -1,21 +1,26 @@
 package ru.posidata.views.main
 
 import js.objects.jso
-import react.FC
+import react.*
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.h1
-import react.dom.html.ReactHTML.script
-import react.react
-import react.useState
 import ru.posidata.views.utils.internals.Answer.NONE
 import ru.posidata.views.utils.internals.Selection
 import ru.posidata.views.utils.internals.Selection.QUESTION
 import ru.posidata.views.utils.internals.Selection.ANSWER
 import ru.posidata.views.utils.internals.Selection.RESULTS
 import ru.posidata.views.utils.externals.particles.Particles
+import ru.posidata.views.utils.externals.telegram.TLoginButton
+import ru.posidata.views.utils.externals.telegram.TLoginButtonSize
+import ru.posidata.views.utils.externals.telegram.TUser
 import web.cssom.*
+import web.dom.document
+import web.html.HTMLDivElement
+
+val telegramWrapperRef:MutableRefObject<HTMLDivElement> = useRef(null)
 
 val mainView = FC {
+
+
     Particles::class.react {
         id = "tsparticles"
         url = "${kotlinx.browser.window.location.origin}/particles.json"
@@ -35,7 +40,20 @@ val mainView = FC {
             style = jso {
                 minHeight = "100vh".unsafeCast<MinHeight>()
             }
-
+            TLoginButton::class.react {
+                 botName = "PosiDataBot"
+                 buttonSize = "large"
+                 onAuthCallback = {
+                     user ->
+                     console.log(user.hash)
+                 }
+                 redirectUrl = null
+                 cornerRadius = 100.0
+                 requestAccess = "write"
+                 usePic = null
+                 lang = null
+                 additionalClassNames  = ""
+            }
 
             div {
                 id = "back"
@@ -46,6 +64,10 @@ val mainView = FC {
                     boxShadow = "10px 10px 20px rgba(0, 0, 0, 0.5)".unsafeCast<BoxShadow>()
                 }
 
+                div {
+                    ref = telegramWrapperRef
+
+                }
                 headerRow {}
 
                 div {
