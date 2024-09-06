@@ -1,0 +1,21 @@
+spring:
+  application:
+    name:
+      backend
+    autoconfigure:
+      exclude=org:
+        springframework:
+          boot:
+            autoconfigure:
+              security:
+                servlet:
+                  SecurityAutoConfiguration
+
+telegram:
+  bot:
+    token:
+
+server:
+  port : 8081
+
+

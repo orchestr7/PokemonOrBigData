@@ -52,6 +52,7 @@ kotlin {
 
             implementation(npm("os-browserify", "^0.3.0"))
             implementation(npm("path-browserify", "^1.0.1"))
+            implementation(npm("react-telegram-auth", "1.0.4"))
 
             // ====== used modules ======
             implementation(npm("bootstrap", "5.3.3"))
