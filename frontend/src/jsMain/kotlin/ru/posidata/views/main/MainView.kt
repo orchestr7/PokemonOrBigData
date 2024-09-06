@@ -3,6 +3,8 @@ package ru.posidata.views.main
 import js.objects.jso
 import react.FC
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.h1
+import react.dom.html.ReactHTML.script
 import react.react
 import react.useState
 import ru.posidata.views.utils.internals.Answer.NONE
@@ -26,12 +28,15 @@ val mainView = FC {
     val (uniqueRandom, setUniqueRandom) = useState<List<Int>>(listOf())
 
     div {
+
         className = ClassName("full-width-container")
         div {
             className = ClassName("row justify-content-center align-items-center")
             style = jso {
                 minHeight = "100vh".unsafeCast<MinHeight>()
             }
+
+
             div {
                 id = "back"
                 className = ClassName("card col-xl-4 col-lg-5 col-md-7 col-sm-8 col-12")
@@ -56,6 +61,7 @@ val mainView = FC {
                                 this.setSelection = setSelection
                             }
                         }
+
                         QUESTION -> questionCard {
                             this.counter = counter
                             this.setCounter = setCounter

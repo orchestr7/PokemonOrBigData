@@ -1,5 +1,5 @@
 plugins {
-    java
+    kotlin("multiplatform") version("2.0.0") apply(false)
 }
 
 group = "ru.posidata"

@@ -19,5 +19,5 @@ plugins {
 }
 
 include("frontend")
+include("backend")
 include("common")
-
