@@ -10,17 +10,12 @@ import ru.posidata.views.utils.internals.Selection.ANSWER
 import ru.posidata.views.utils.internals.Selection.RESULTS
 import ru.posidata.views.utils.externals.particles.Particles
 import ru.posidata.views.utils.externals.telegram.TLoginButton
-import ru.posidata.views.utils.externals.telegram.TLoginButtonSize
-import ru.posidata.views.utils.externals.telegram.TUser
 import web.cssom.*
-import web.dom.document
 import web.html.HTMLDivElement
 
-val telegramWrapperRef:MutableRefObject<HTMLDivElement> = useRef(null)
+val telegramWrapperRef: MutableRefObject<HTMLDivElement> = useRef(null)
 
 val mainView = FC {
-
-
     Particles::class.react {
         id = "tsparticles"
         url = "${kotlinx.browser.window.location.origin}/particles.json"
@@ -40,19 +35,19 @@ val mainView = FC {
             style = jso {
                 minHeight = "100vh".unsafeCast<MinHeight>()
             }
-            TLoginButton::class.react {
-                 botName = "PosiDataBot"
-                 buttonSize = "large"
-                 onAuthCallback = {
-                     user ->
-                     console.log(user.hash)
-                 }
-                 redirectUrl = null
-                 cornerRadius = 100.0
-                 requestAccess = "write"
-                 usePic = null
-                 lang = null
-                 additionalClassNames  = ""
+
+            TLoginButton {
+                botName = "PosiDataBot"
+                buttonSize = "large"
+                onAuthCallback = { user ->
+                    console.log(user.hash)
+                }
+                redirectUrl = null
+                cornerRadius = 15.0
+                requestAccess = "write"
+                usePic = null
+                lang = null
+                additionalClassNames = ""
             }
 
             div {
