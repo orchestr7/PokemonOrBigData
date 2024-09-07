@@ -9,7 +9,7 @@ import react.dom.html.ReactHTML.h6
 import react.dom.html.ReactHTML.img
 import ru.posidata.views.utils.externals.telegram.TLoginButton
 import ru.posidata.views.utils.externals.telegram.User
-import ru.posidata.views.utils.internals.Selection
+import ru.posidata.common.Selection
 import web.cssom.*
 
 val welcomeCard = FC<WelcomeCardProps> { props ->
@@ -82,6 +82,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                     botName = "PosiDataBot"
                     buttonSize = "large"
                     onAuthCallback = { user ->
+                        console.log(user)
                         val feUser = User(
                             authDate = user.auth_date,
                             firstName = user.first_name,

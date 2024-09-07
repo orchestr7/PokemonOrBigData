@@ -1,4 +1,4 @@
-package ru.posidata.views.utils.internals
+package ru.posidata.common
 
 enum class Selection {
     ANSWER,

@@ -9,7 +9,16 @@ data class User(
     val id: Long = 0,
     @Column(unique = true)
     val telegramId: Long,
-    val firstName: String,
+    val firstName: String?,
     val lastName: String?,
-    val username: String?
+    val username: String?,
+
+    @Column(nullable = true)
+    var firstGameScore: Int?,
+
+    @Column(nullable = true)
+    var secondGameScore: Int?,
+
+    @Column(nullable = true)
+    var thirdGameScore: Int?,
 )

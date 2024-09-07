@@ -5,16 +5,16 @@ import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.img
-import ru.posidata.views.utils.internals.Answer.WRONG
-import ru.posidata.views.utils.internals.Answer.CORRECT
-import ru.posidata.views.utils.internals.Selection.ANSWER
-import ru.posidata.views.components.ResourceType.BIG_DATA
-import ru.posidata.views.components.ResourceType.POKEMON
-import ru.posidata.views.components.Resources
+import ru.posidata.common.Answer.WRONG
+import ru.posidata.common.Answer.CORRECT
+import ru.posidata.common.Selection.ANSWER
+import ru.posidata.common.ResourceType.BIG_DATA
+import ru.posidata.common.ResourceType.POKEMON
+import ru.posidata.common.Resources
 import ru.posidata.views.components.neonLightingText
 import ru.posidata.views.utils.externals.telegram.User
-import ru.posidata.views.utils.internals.Answer
-import ru.posidata.views.utils.internals.Selection
+import ru.posidata.common.Answer
+import ru.posidata.common.Selection
 import web.cssom.*
 import kotlin.random.Random
 

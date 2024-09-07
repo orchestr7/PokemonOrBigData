@@ -3,11 +3,11 @@ package ru.posidata.views.main
 import js.objects.jso
 import react.*
 import react.dom.html.ReactHTML.div
-import ru.posidata.views.utils.internals.Answer.NONE
-import ru.posidata.views.utils.internals.Selection
-import ru.posidata.views.utils.internals.Selection.QUESTION
-import ru.posidata.views.utils.internals.Selection.ANSWER
-import ru.posidata.views.utils.internals.Selection.RESULTS
+import ru.posidata.common.Answer.NONE
+import ru.posidata.common.Selection
+import ru.posidata.common.Selection.QUESTION
+import ru.posidata.common.Selection.ANSWER
+import ru.posidata.common.Selection.RESULTS
 import ru.posidata.views.utils.externals.particles.Particles
 import ru.posidata.views.utils.externals.telegram.User
 import web.cssom.*

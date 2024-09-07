@@ -6,7 +6,7 @@ import react.Props
 import react.StateSetter
 import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.a
-import ru.posidata.views.utils.internals.Answer.CORRECT
+import ru.posidata.common.Answer.CORRECT
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h2
@@ -16,9 +16,9 @@ import react.useState
 import ru.posidata.views.utils.externals.fontawesome.faGithub
 import ru.posidata.views.utils.externals.fontawesome.fontAwesomeIcon
 import ru.posidata.views.utils.externals.telegram.User
-import ru.posidata.views.utils.internals.Answer
-import ru.posidata.views.utils.internals.Answer.NONE
-import ru.posidata.views.utils.internals.Selection
+import ru.posidata.common.Answer
+import ru.posidata.common.Answer.NONE
+import ru.posidata.common.Selection
 import web.cssom.*
 
 val resultCard = FC<ResultProps> { props ->

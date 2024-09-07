@@ -1,7 +1,7 @@
-package ru.posidata.views.components
+package ru.posidata.common
 
-import ru.posidata.views.components.ResourceType.POKEMON
-import ru.posidata.views.components.ResourceType.BIG_DATA
+import ru.posidata.common.ResourceType.POKEMON
+import ru.posidata.common.ResourceType.BIG_DATA
 
 enum class ResourceType {
     POKEMON,
@@ -64,6 +64,7 @@ enum class Resources(
 
     companion object {
         fun getById(i: Int): Resources = Resources.entries.find { it.id == i }!!
+        fun getByName(name: String): Resources? = Resources.entries.find { it.name.uppercase() == name }
     }
 
     fun getName(): String {

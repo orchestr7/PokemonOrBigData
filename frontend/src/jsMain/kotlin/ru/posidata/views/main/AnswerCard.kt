@@ -10,13 +10,13 @@ import react.dom.html.ReactHTML.h2
 import react.dom.html.ReactHTML.h6
 import react.dom.html.ReactHTML.img
 import react.useState
-import ru.posidata.views.components.ResourceType.BIG_DATA
-import ru.posidata.views.components.ResourceType.POKEMON
-import ru.posidata.views.components.Resources
-import ru.posidata.views.utils.internals.Answer
-import ru.posidata.views.utils.internals.Selection
-import ru.posidata.views.utils.internals.Selection.QUESTION
-import ru.posidata.views.utils.internals.Selection.RESULTS
+import ru.posidata.common.ResourceType.BIG_DATA
+import ru.posidata.common.ResourceType.POKEMON
+import ru.posidata.common.Resources
+import ru.posidata.common.Answer
+import ru.posidata.common.Selection
+import ru.posidata.common.Selection.QUESTION
+import ru.posidata.common.Selection.RESULTS
 import web.cssom.*
 
 val answerCard = FC<AnswerProps> { props ->

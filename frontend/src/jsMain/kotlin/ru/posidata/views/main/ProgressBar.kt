@@ -7,12 +7,12 @@ import react.dom.html.ReactHTML.div
 import ru.posidata.views.utils.externals.fontawesome.faThumbsUp
 import ru.posidata.views.utils.externals.fontawesome.faXmark
 import ru.posidata.views.utils.externals.fontawesome.fontAwesomeIcon
-import ru.posidata.views.utils.internals.Answer.NONE
-import ru.posidata.views.utils.internals.Answer.WRONG
-import ru.posidata.views.utils.internals.Answer.CORRECT
-import ru.posidata.views.utils.internals.Selection.QUESTION
-import ru.posidata.views.utils.internals.Answer
-import ru.posidata.views.utils.internals.Selection
+import ru.posidata.common.Answer.NONE
+import ru.posidata.common.Answer.WRONG
+import ru.posidata.common.Answer.CORRECT
+import ru.posidata.common.Selection.QUESTION
+import ru.posidata.common.Answer
+import ru.posidata.common.Selection
 import web.cssom.*
 
 val progressBar = FC<ProgressBarProps> { props ->

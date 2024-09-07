@@ -6,18 +6,22 @@ import ru.posidata.backend.repository.UserRepository
 
 @Service
 class UserService(private val userRepository: UserRepository) {
-    fun findOrCreateUser(telegramData: Map<String, Any>): User {
-        val telegramId = telegramData["id"] as Long
-        return userRepository.findByTelegramId(telegramId) ?: createUser(telegramData)
-    }
-
-    private fun createUser(telegramData: Map<String, Any>): User {
-        val user = User(
-            telegramId = telegramData["id"] as Long,
-            firstName = telegramData["first_name"] as String,
-            lastName = telegramData["last_name"] as? String,
-            username = telegramData["username"] as? String
+    fun findOrCreateUser(
+        username: String?,
+        telegramId: Long,
+        firstName: String?,
+        lastName: String?
+    ): User {
+        return userRepository.findByTelegramId(telegramId) ?: userRepository.save(
+            User(
+                telegramId = telegramId,
+                username = username,
+                firstName = firstName,
+                lastName = lastName,
+                firstGameScore = 0,
+                secondGameScore = null,
+                thirdGameScore = null
+            )
         )
-        return userRepository.save(user)
     }
 }

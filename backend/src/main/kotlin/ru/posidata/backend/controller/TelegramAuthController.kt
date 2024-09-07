@@ -43,38 +43,9 @@ class TelegramAuthController(private val telegramAuthService: TelegramAuthServic
     //</body>
     //</html>
     // https://posidata.ru/api/test?id=221298772&first_name=Андрей&last_name=Кулешов&username=akuleshov7&photo_url=https%3A%2F%2Ft.me%2Fi%2Fuserpic%2F320%2Fd3fKyG306aXHDBCxZXfWTpGlii6fZqZMo1tBmMPEl_E.jpg&auth_date=1725656645&hash=742dda3a019e57821e1fb7acf9918aeb6f0d734cc5c8612913b6696aeab2c745
-    @GetMapping("/test")
-    fun test(
-        @RequestParam id: String,
-        @RequestParam first_name: String,
-        @RequestParam last_name: String,
-        @RequestParam photo_url: String,
-        @RequestParam username: String,
-        @RequestParam auth_date: String,
-        @RequestParam hash: String
-    ): String {
-        println(username)
-        return username
-    }
-
     @GetMapping("/get")
     fun get(): String {
         println("Hi!")
         return "Hi"
-    }
-
-
-    @PostMapping("auth/telegram")
-    fun telegramAuth(@RequestBody request: Map<String, Any>): ResponseEntity<Any> {
-        return try {
-            val authResult = telegramAuthService.authenticate(request)
-            if (authResult.isAuthenticated) {
-                ResponseEntity.ok(authResult.token)
-            } else {
-                ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login info hash mismatch")
-            }
-        } catch (e: Exception) {
-            ResponseEntity.status(HttpStatus.FORBIDDEN).body("Server error while authenticating")
-        }
     }
 }
