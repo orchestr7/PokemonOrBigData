@@ -5,9 +5,12 @@
     background: linear-gradient(0deg, rgb(0, 85, 102), rgb(0, 55, 71)); /* Standard syntax */
 }
 
+
+
 html {
     height: 100%;
 }
+
 body {
     height: 100%;
     margin: 0;
@@ -33,4 +36,8 @@ body {
 
 .full-width-container .row {
     margin: 0;
+}
+
+.zIndex1000 {
+    z-index: 1000;
 }

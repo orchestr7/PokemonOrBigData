@@ -7,6 +7,8 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h6
 import react.dom.html.ReactHTML.img
+import ru.posidata.views.utils.externals.telegram.TLoginButton
+import ru.posidata.views.utils.externals.telegram.User
 import ru.posidata.views.utils.internals.Selection
 import web.cssom.*
 
@@ -49,7 +51,8 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                         "Изначальная идея родилась из "
                         )
                 a {
-                    href = "https://docs.google.com/forms/d/e/1FAIpQLScRsfRHXPTuEXdNvUcI8DzJIU5iazqlpksWucPF0d8l2ztkkA/viewform"
+                    href =
+                        "https://docs.google.com/forms/d/e/1FAIpQLScRsfRHXPTuEXdNvUcI8DzJIU5iazqlpksWucPF0d8l2ztkkA/viewform"
                     className = ClassName("text-info")
                     +"этой"
                 }
@@ -74,6 +77,37 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
 
             }
 
+            if (props.user == null) {
+                TLoginButton {
+                    botName = "PosiDataBot"
+                    buttonSize = "large"
+                    onAuthCallback = { user ->
+                        val feUser = User(
+                            authDate = user.auth_date,
+                            firstName = user.first_name,
+                            lastName = user.last_name,
+                            hash = user.hash,
+                            id = user.id,
+                            photoUrl = user.photo_url,
+                            username = user.username,
+                        )
+                        props.setUser(
+                            feUser
+                        )
+                    }
+                    redirectUrl = null
+                    cornerRadius = 15.0
+                    requestAccess = "write"
+                    usePic = null
+                    lang = null
+                    additionalClassNames = "d-flex justify-content-center zIndex1000"
+                }
+            } else {
+                h6 {
+                    +"Привет, ${props.user?.username}"
+                }
+            }
+
             img {
                 className = ClassName("animate__animated animate__shakeX mt-1 border border-info border-5 img-glow3 ")
                 src = "img/pokemonVSBigData.jpeg"
@@ -93,4 +127,6 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
 
 external interface WelcomeCardProps : Props {
     var setSelection: StateSetter<Selection>
+    var user: User?
+    var setUser: StateSetter<User?>
 }

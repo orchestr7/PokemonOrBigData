@@ -15,6 +15,7 @@ import react.dom.html.ReactHTML.img
 import react.useState
 import ru.posidata.views.utils.externals.fontawesome.faGithub
 import ru.posidata.views.utils.externals.fontawesome.fontAwesomeIcon
+import ru.posidata.views.utils.externals.telegram.User
 import ru.posidata.views.utils.internals.Answer
 import ru.posidata.views.utils.internals.Answer.NONE
 import ru.posidata.views.utils.internals.Selection
@@ -117,4 +118,5 @@ external interface ResultProps : Props {
     var setCounter: StateSetter<Int>
     var setAnswers: StateSetter<MutableList<Answer>>
     var setUniqueRandom: StateSetter<List<Int>>
+    var user: User?
 }

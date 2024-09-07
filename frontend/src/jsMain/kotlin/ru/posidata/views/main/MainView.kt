@@ -9,13 +9,11 @@ import ru.posidata.views.utils.internals.Selection.QUESTION
 import ru.posidata.views.utils.internals.Selection.ANSWER
 import ru.posidata.views.utils.internals.Selection.RESULTS
 import ru.posidata.views.utils.externals.particles.Particles
-import ru.posidata.views.utils.externals.telegram.TLoginButton
+import ru.posidata.views.utils.externals.telegram.User
 import web.cssom.*
-import web.html.HTMLDivElement
-
-val telegramWrapperRef: MutableRefObject<HTMLDivElement> = useRef(null)
 
 val mainView = FC {
+
     Particles::class.react {
         id = "tsparticles"
         url = "${kotlinx.browser.window.location.origin}/particles.json"
@@ -26,28 +24,14 @@ val mainView = FC {
     val (answers, setAnswers) = useState(MutableList(12) { NONE })
     val (pokemonId, setPokemonId) = useState(0)
     val (uniqueRandom, setUniqueRandom) = useState<List<Int>>(listOf())
+    val (user, setUser) = useState<User?>(null)
 
     div {
-
         className = ClassName("full-width-container")
         div {
             className = ClassName("row justify-content-center align-items-center")
             style = jso {
                 minHeight = "100vh".unsafeCast<MinHeight>()
-            }
-
-            TLoginButton {
-                botName = "PosiDataBot"
-                buttonSize = "large"
-                onAuthCallback = { user ->
-                    console.log(user.hash)
-                }
-                redirectUrl = null
-                cornerRadius = 15.0
-                requestAccess = "write"
-                usePic = null
-                lang = null
-                additionalClassNames = ""
             }
 
             div {
@@ -59,10 +43,6 @@ val mainView = FC {
                     boxShadow = "10px 10px 20px rgba(0, 0, 0, 0.5)".unsafeCast<BoxShadow>()
                 }
 
-                div {
-                    ref = telegramWrapperRef
-
-                }
                 headerRow {}
 
                 div {
@@ -76,6 +56,8 @@ val mainView = FC {
                         Selection.NONE -> {
                             welcomeCard {
                                 this.setSelection = setSelection
+                                this.setUser = setUser
+                                this.user = user
                             }
                         }
 
@@ -89,6 +71,7 @@ val mainView = FC {
                             this.setSelection = setSelection
                             this.uniqueRandom = uniqueRandom
                             this.setUniqueRandom = setUniqueRandom
+                            this.user = user
                         }
 
                         ANSWER -> {
@@ -109,6 +92,7 @@ val mainView = FC {
                                 this.setAnswers = setAnswers
                                 this.setUniqueRandom = setUniqueRandom
                                 this.setSelection = setSelection
+                                this.user = user
                             }
                         }
                     }

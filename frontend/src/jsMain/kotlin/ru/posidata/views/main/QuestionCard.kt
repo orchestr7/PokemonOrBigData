@@ -12,6 +12,7 @@ import ru.posidata.views.components.ResourceType.BIG_DATA
 import ru.posidata.views.components.ResourceType.POKEMON
 import ru.posidata.views.components.Resources
 import ru.posidata.views.components.neonLightingText
+import ru.posidata.views.utils.externals.telegram.User
 import ru.posidata.views.utils.internals.Answer
 import ru.posidata.views.utils.internals.Selection
 import web.cssom.*
@@ -164,4 +165,6 @@ external interface QuestionCard : Props {
 
     var setUniqueRandom: StateSetter<List<Int>>
     var uniqueRandom: List<Int>
+
+    var user: User?
 }
