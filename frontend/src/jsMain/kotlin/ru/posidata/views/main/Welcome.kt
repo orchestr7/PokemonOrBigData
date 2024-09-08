@@ -39,13 +39,14 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                 response.ok -> {
                     props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
                 }
-                else -> window.alert("Failed to login with telegram")
+                else -> window.alert("Failed to validate with telegram")
             }
         }
         props.setSelection(Selection.QUESTION)
     }
 
     // just a small test
+/*
     div {
         button {
             onClick = {
@@ -71,6 +72,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
             }
         }
     }
+*/
 
 
     div {

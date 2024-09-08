@@ -11,7 +11,7 @@ class TelegramAuthService(
     @Value("\${telegram.bot.token}") private val telegramToken: String,
 ) {
     fun isValidHash(parsedData: Map<String, String>, hash: String): Boolean {
-        val dataKeys = parsedData.keys.filter { it != "hash" }.sorted()
+        val dataKeys = parsedData.keys.filter { it != "hash" }.filter { parsedData[it] != "undefined" }.sorted()
         val items = dataKeys.map { key -> "$key=${parsedData[key]}" }
         val dataCheckString = items.joinToString("\n")
 

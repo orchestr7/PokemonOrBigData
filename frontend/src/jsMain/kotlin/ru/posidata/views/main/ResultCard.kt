@@ -49,7 +49,7 @@ val resultCard = FC<ResultProps> { props ->
 
             when {
                 response.ok -> props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
-                else -> window.alert("Failed to login with telegram")
+                else -> window.alert("Failed to validate with telegram")
             }
         }
     }
