@@ -18,11 +18,11 @@ class UserController(
 ) {
     @GetMapping("/get")
     fun getResults(
-        @RequestParam authDate: Int,
+        @RequestParam authDate: Long,
         @RequestParam firstName: String,
         @RequestParam lastName: String,
         @RequestParam hash: String,
-        @RequestParam id: Int,
+        @RequestParam id: Long,
         @RequestParam photoUrl: String,
         @RequestParam username: String,
     ): ResponseEntity<Any> {
@@ -38,6 +38,7 @@ class UserController(
         println("Received a request to get results from $user. Converted to map: ${user.convertToMap()}")
 
         if(!telegramAuthService.isValidHash(user.convertToMap(), user.hash)) {
+            println("Validation unsuccessful for ${user.username}")
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
 
@@ -49,11 +50,11 @@ class UserController(
 
     @GetMapping("/update")
     fun submitAnswer(
-        @RequestParam authDate: Int,
+        @RequestParam authDate: Long,
         @RequestParam firstName: String,
         @RequestParam lastName: String,
         @RequestParam hash: String,
-        @RequestParam id: Int,
+        @RequestParam id: Long,
         @RequestParam photoUrl: String,
         @RequestParam username: String,
         @RequestParam isNextRound: Boolean

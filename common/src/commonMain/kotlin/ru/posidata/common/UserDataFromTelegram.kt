@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserDataFromTelegram (
-    val authDate: Int,
+    val authDate: Long,
     val firstName: String,
     val lastName: String,
     val hash: String,
-    val id: Int,
+    val id: Long,
     val photoUrl: String,
     val username: String,
 ) {

@@ -156,6 +156,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                             photoUrl = user.photo_url,
                             username = user.username,
                         )
+                        console.log(feUser.convertToMap())
                         props.setTgUser(feUser)
                     }
                 }
