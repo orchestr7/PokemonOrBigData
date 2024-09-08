@@ -32,7 +32,6 @@ val questionCard = FC<QuestionCard> { props ->
     val pokemon = Resources.getById(props.pokemonId)
 
     val updateResult = useDeferredRequest {
-        console.log("Test")
         if (props.tgUser != null) {
             val response = get(
                 url = "${window.location.origin}/api/update",
@@ -91,7 +90,6 @@ val questionCard = FC<QuestionCard> { props ->
                         if (pokemon.type == BIG_DATA) {
                             updateResult()
                             props.answers[props.counter] = CORRECT
-                            console.log("a")
                         } else {
                             props.answers[props.counter] = WRONG
                         }
@@ -114,15 +112,10 @@ val questionCard = FC<QuestionCard> { props ->
                         props.setSelection(ANSWER)
                         props.setCounter(props.counter + 1)
                         if (pokemon.type == POKEMON) {
-                            console.log("Entering POKEMON condition")
                             updateResult()
                             props.answers[props.counter] = CORRECT
-                            console.log("Answer set to CORRECT")
-                            console.log("tgUser: ${props.tgUser}")
                         } else {
-                            console.log("POKEMON condition not met")
                             props.answers[props.counter] = WRONG
-                            console.log("Answer set to WRONG")
                         }
                         props.setAnswers(props.answers)
                     }

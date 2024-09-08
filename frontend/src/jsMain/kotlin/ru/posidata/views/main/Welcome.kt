@@ -36,14 +36,17 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
             )
 
             when {
-                response.ok -> props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
+                response.ok -> {
+                    props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
+                }
                 else -> window.alert("Failed to login with telegram")
             }
         }
+        props.setSelection(Selection.QUESTION)
     }
 
     // just a small test
-    /*div {
+    div {
         button {
             onClick = {
                 console.log(props.tgUser)
@@ -68,7 +71,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
             }
         }
     }
-*/
+
 
     div {
         className = ClassName("row justify-content-center mt-1 px-0")
@@ -142,7 +145,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                     requestAccess = "write"
                     usePic = null
                     lang = null
-                    additionalClassNames = "d-flex justify-content-center zIndex1000"
+                    additionalClassNames = "d-flex justify-content-center zIndex1000 mb-2"
                     onAuthCallback = { user ->
                         val feUser = UserDataFromTelegram(
                             authDate = user.auth_date,
@@ -178,7 +181,6 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                 }
                 onClick = {
                     getUser()
-                    props.setSelection(Selection.QUESTION)
                 }
             }
         }
