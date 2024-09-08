@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization") version "2.0.20"
 }
 
 kotlin {
@@ -28,6 +29,8 @@ kotlin {
         jsMain.dependencies {
             api(project(":common"))
             implementation(project.dependencies.enforcedPlatform(libs.kotlin.wrappers.bom))
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC.2")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.2")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-extensions")
             implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom")

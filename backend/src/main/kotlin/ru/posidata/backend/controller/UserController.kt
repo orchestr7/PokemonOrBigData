@@ -7,6 +7,7 @@ import ru.posidata.backend.service.TelegramAuthService
 import ru.posidata.backend.service.UserService
 import ru.posidata.common.ResourceType
 import ru.posidata.common.Resources
+import ru.posidata.common.UserDataFromTelegram
 
 
 @RestController
@@ -17,41 +18,62 @@ class UserController(
 ) {
     @GetMapping("/get")
     fun getResults(
-        @RequestParam username: String?,
-        @RequestParam telegramId: Long,
+        @RequestParam authDate: Int,
+        @RequestParam firstName: String,
+        @RequestParam lastName: String,
         @RequestParam hash: String,
-        @RequestParam firstName: String?,
-        @RequestParam lastName: String?,
+        @RequestParam id: Int,
+        @RequestParam photoUrl: String,
+        @RequestParam username: String,
     ): ResponseEntity<Any> {
-        println("Received a request to get results from $username, $telegramId, $hash, $firstName, $lastName")
-        userService.findOrCreateUser(
-            username = username,
-            telegramId = telegramId,
+        val user = UserDataFromTelegram(
+            authDate = authDate,
             firstName = firstName,
-            lastName = lastName
+            lastName = lastName,
+            hash = hash,
+            id = id,
+            photoUrl = photoUrl,
+            username = username,
         )
-        return ResponseEntity.status(HttpStatus.OK).body("")
+        println("Received a request to get results from $user. Converted to map: ${user.convertToMap()}")
+
+        if(!telegramAuthService.isValidHash(user.convertToMap(), user.hash)) {
+            return ResponseEntity(HttpStatus.FORBIDDEN)
+        }
+
+        println("Validation successful for ${user.username}")
+
+        val responseUser = userService.findOrCreateUser(user)
+        return ResponseEntity.status(HttpStatus.OK).body(responseUser.toDTO())
     }
 
-    @GetMapping("/answer")
+    @GetMapping("/update")
     fun submitAnswer(
-        @RequestParam pokemonName: String,
-        @RequestParam resourceType: ResourceType,
-        // @RequestParam gameNumber: Int,
-        @RequestParam username: String,
+        @RequestParam authDate: Int,
+        @RequestParam firstName: String,
+        @RequestParam lastName: String,
         @RequestParam hash: String,
+        @RequestParam id: Int,
+        @RequestParam photoUrl: String,
+        @RequestParam username: String,
+        @RequestParam isNextRound: Boolean
     ): ResponseEntity<Any> {
-        // user
-        println(pokemonName)
-        var count: Int = 0
-        val pokemon = Resources.getByName(pokemonName)
-            ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid pokemon name $pokemonName")
-        if (pokemon.type == resourceType) {
-            // correct answer
-            ++count
-        } else {
-            // incorrect answer
+        val user = UserDataFromTelegram(
+            authDate = authDate,
+            firstName = firstName,
+            lastName = lastName,
+            hash = hash,
+            id = id,
+            photoUrl = photoUrl,
+            username = username,
+        )
+        println("Received a request to get results from $user. Converted to map: ${user.convertToMap()}")
+
+        if(!telegramAuthService.isValidHash(user.convertToMap(), user.hash)) {
+            return ResponseEntity(HttpStatus.FORBIDDEN)
         }
-        return ResponseEntity.status(HttpStatus.OK).body(resourceType)
+
+        val responseUser = userService.updateGameRound(user.username, isNextRound)
+        return ResponseEntity.status(HttpStatus.OK).body(responseUser?.toDTO())
     }
 }

@@ -1,20 +1,19 @@
 package ru.posidata.views.main
 
 import js.objects.jso
+import kotlinx.browser.window
 import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.img
+import ru.posidata.common.*
 import ru.posidata.common.Answer.WRONG
 import ru.posidata.common.Answer.CORRECT
 import ru.posidata.common.Selection.ANSWER
 import ru.posidata.common.ResourceType.BIG_DATA
 import ru.posidata.common.ResourceType.POKEMON
-import ru.posidata.common.Resources
 import ru.posidata.views.components.neonLightingText
-import ru.posidata.views.utils.externals.telegram.User
-import ru.posidata.common.Answer
-import ru.posidata.common.Selection
+import ru.posidata.views.utils.internals.*
 import web.cssom.*
 import kotlin.random.Random
 
@@ -30,8 +29,35 @@ val questionCard = FC<QuestionCard> { props ->
             randomNumber = Random.nextInt(0, Resources.entries.size)
         }
     }
-
     val pokemon = Resources.getById(props.pokemonId)
+
+    val updateResult = useDeferredRequest {
+        console.log("Test")
+        if (props.tgUser != null) {
+            val response = get(
+                url = "${window.location.origin}/api/update",
+                params = jso<dynamic> {
+                    authDate = props.tgUser?.authDate
+                    firstName = props.tgUser?.firstName
+                    lastName = props.tgUser?.lastName
+                    hash = props.tgUser?.hash
+                    id = props.tgUser?.id
+                    photoUrl = props.tgUser?.photoUrl
+                    username = props.tgUser?.username
+                    isNextRound = false
+                },
+                headers = jsonHeaders,
+                loadingHandler = ::noopLoadingHandler,
+                responseHandler = ::noopResponseHandler,
+            )
+
+            when {
+                response.ok -> props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
+                else -> window.alert("Failed to login with telegram")
+            }
+        }
+    }
+
 
     div {
         className = ClassName("row justify-content-center logo-main mt-3 px-0")
@@ -63,7 +89,9 @@ val questionCard = FC<QuestionCard> { props ->
                         props.setSelection(ANSWER)
                         props.setCounter(props.counter + 1)
                         if (pokemon.type == BIG_DATA) {
+                            updateResult()
                             props.answers[props.counter] = CORRECT
+                            console.log("a")
                         } else {
                             props.answers[props.counter] = WRONG
                         }
@@ -86,9 +114,15 @@ val questionCard = FC<QuestionCard> { props ->
                         props.setSelection(ANSWER)
                         props.setCounter(props.counter + 1)
                         if (pokemon.type == POKEMON) {
+                            console.log("Entering POKEMON condition")
+                            updateResult()
                             props.answers[props.counter] = CORRECT
+                            console.log("Answer set to CORRECT")
+                            console.log("tgUser: ${props.tgUser}")
                         } else {
+                            console.log("POKEMON condition not met")
                             props.answers[props.counter] = WRONG
+                            console.log("Answer set to WRONG")
                         }
                         props.setAnswers(props.answers)
                     }
@@ -166,5 +200,7 @@ external interface QuestionCard : Props {
     var setUniqueRandom: StateSetter<List<Int>>
     var uniqueRandom: List<Int>
 
-    var user: User?
+    var user: UserForSerializationDTO?
+    var setUser: StateSetter<UserForSerializationDTO?>
+    var tgUser: UserDataFromTelegram?
 }

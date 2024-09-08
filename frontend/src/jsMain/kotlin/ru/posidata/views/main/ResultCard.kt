@@ -1,6 +1,7 @@
 package ru.posidata.views.main
 
 import js.objects.jso
+import kotlinx.browser.window
 import react.FC
 import react.Props
 import react.StateSetter
@@ -15,15 +16,44 @@ import react.dom.html.ReactHTML.img
 import react.useState
 import ru.posidata.views.utils.externals.fontawesome.faGithub
 import ru.posidata.views.utils.externals.fontawesome.fontAwesomeIcon
-import ru.posidata.views.utils.externals.telegram.User
+import ru.posidata.common.UserDataFromTelegram
 import ru.posidata.common.Answer
 import ru.posidata.common.Answer.NONE
 import ru.posidata.common.Selection
+import ru.posidata.common.UserForSerializationDTO
+import ru.posidata.views.utils.internals.*
 import web.cssom.*
 
 val resultCard = FC<ResultProps> { props ->
     val correctAnswers = props.answers.count { it == CORRECT }
     var (loading, setLoading) = useState(true)
+
+    val updateRound = useDeferredRequest {
+        if (props.tgUser != null) {
+            val response = get(
+                url = "${window.location.origin}/api/update",
+                params = jso<dynamic> {
+                    authDate = props.tgUser?.authDate
+                    firstName = props.tgUser?.firstName
+                    lastName = props.tgUser?.lastName
+                    hash = props.tgUser?.hash
+                    id = props.tgUser?.id
+                    photoUrl = props.tgUser?.photoUrl
+                    username = props.tgUser?.username
+                    isNextRound = false
+                },
+                headers = jsonHeaders,
+                loadingHandler = ::noopLoadingHandler,
+                responseHandler = ::noopResponseHandler,
+            )
+
+            when {
+                response.ok -> props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
+                else -> window.alert("Failed to login with telegram")
+            }
+        }
+    }
+
     div {
         style = jso {
             display = (if (loading) "none" else "block").unsafeCast<Display>()
@@ -89,6 +119,7 @@ val resultCard = FC<ResultProps> { props ->
                         props.setCounter(0)
                         props.setAnswers(MutableList(12) { NONE })
                         props.setUniqueRandom(listOf())
+                        updateRound()
                     }
                     +"Еще раз!"
                 }
@@ -118,5 +149,7 @@ external interface ResultProps : Props {
     var setCounter: StateSetter<Int>
     var setAnswers: StateSetter<MutableList<Answer>>
     var setUniqueRandom: StateSetter<List<Int>>
-    var user: User?
+    var user: UserForSerializationDTO?
+    var tgUser: UserDataFromTelegram?
+    var setUser: StateSetter<UserForSerializationDTO?>
 }

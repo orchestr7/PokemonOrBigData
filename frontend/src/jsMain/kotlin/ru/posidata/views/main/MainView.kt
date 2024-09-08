@@ -2,6 +2,7 @@ package ru.posidata.views.main
 
 import js.objects.jso
 import react.*
+import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
 import ru.posidata.common.Answer.NONE
 import ru.posidata.common.Selection
@@ -9,7 +10,8 @@ import ru.posidata.common.Selection.QUESTION
 import ru.posidata.common.Selection.ANSWER
 import ru.posidata.common.Selection.RESULTS
 import ru.posidata.views.utils.externals.particles.Particles
-import ru.posidata.views.utils.externals.telegram.User
+import ru.posidata.common.UserDataFromTelegram
+import ru.posidata.common.UserForSerializationDTO
 import web.cssom.*
 
 val mainView = FC {
@@ -24,7 +26,8 @@ val mainView = FC {
     val (answers, setAnswers) = useState(MutableList(12) { NONE })
     val (pokemonId, setPokemonId) = useState(0)
     val (uniqueRandom, setUniqueRandom) = useState<List<Int>>(listOf())
-    val (user, setUser) = useState<User?>(null)
+    val (user, setUser) = useState<UserForSerializationDTO?>(null)
+    val (tgUser, setTgUser) = useState<UserDataFromTelegram?>(null)
 
     div {
         className = ClassName("full-width-container")
@@ -52,47 +55,83 @@ val mainView = FC {
                         minHeight = "53vh".unsafeCast<MinHeight>()
                         display = Display.flex
                     }
-                    when (selection) {
-                        Selection.NONE -> {
-                            welcomeCard {
-                                this.setSelection = setSelection
-                                this.setUser = setUser
-                                this.user = user
+                    if (user != null && user.gameNumber() == 4) {
+                        ReactHTML.h6 {
+                            className = ClassName("mb-2 text-white mx-2")
+                            +"Ты отыграл уже три раза, в рейтинге участвовать больше не получится, обнови страницу если хочешь просто пройти тест. Твои результаты:"
+
+                        }
+                        ReactHTML.h6 {
+                            className = ClassName("mb-2 text-center")
+                            style = jso {
+                                color = "yellow".unsafeCast<Color>()
                             }
+                            +"${user.firstGameScore}/12"
                         }
-
-                        QUESTION -> questionCard {
-                            this.counter = counter
-                            this.setCounter = setCounter
-                            this.answers = answers
-                            this.setAnswers = setAnswers
-                            this.setPokemonId = setPokemonId
-                            this.pokemonId = pokemonId
-                            this.setSelection = setSelection
-                            this.uniqueRandom = uniqueRandom
-                            this.setUniqueRandom = setUniqueRandom
-                            this.user = user
-                        }
-
-                        ANSWER -> {
-                            answerCard {
-                                this.setSelection = setSelection
-                                this.counter = counter
-                                this.pokemonId = pokemonId
-                                this.answers = answers
+                        ReactHTML.h6 {
+                            className = ClassName("mb-2 text-center")
+                            style = jso {
+                                color = "yellow".unsafeCast<Color>()
                             }
+                            +"${user.firstGameScore}/12"
                         }
+                        ReactHTML.h6 {
+                            className = ClassName("mb-2 text-center")
+                            style = jso {
+                                color = "yellow".unsafeCast<Color>()
+                            }
+                            +"${user.thirdGameScore}/12"
+                        }
+                    } else {
+                        when (selection) {
+                            Selection.NONE -> {
+                                welcomeCard {
+                                    this.setSelection = setSelection
+                                    this.setUser = setUser
+                                    this.tgUser = tgUser
+                                    this.setTgUser = setTgUser
+                                }
+                            }
 
-                        RESULTS -> {
-                            resultCard {
+                            QUESTION -> questionCard {
                                 this.counter = counter
-                                this.answers = answers
-                                this.setSelection = setSelection
                                 this.setCounter = setCounter
+                                this.answers = answers
                                 this.setAnswers = setAnswers
-                                this.setUniqueRandom = setUniqueRandom
+                                this.setPokemonId = setPokemonId
+                                this.pokemonId = pokemonId
                                 this.setSelection = setSelection
+                                this.uniqueRandom = uniqueRandom
+                                this.setUniqueRandom = setUniqueRandom
+
                                 this.user = user
+                                this.tgUser = tgUser
+                                this.setUser = setUser
+                            }
+
+                            ANSWER -> {
+                                answerCard {
+                                    this.setSelection = setSelection
+                                    this.counter = counter
+                                    this.pokemonId = pokemonId
+                                    this.answers = answers
+                                }
+                            }
+
+                            RESULTS -> {
+                                resultCard {
+                                    this.counter = counter
+                                    this.answers = answers
+                                    this.setSelection = setSelection
+                                    this.setCounter = setCounter
+                                    this.setAnswers = setAnswers
+                                    this.setUniqueRandom = setUniqueRandom
+                                    this.setSelection = setSelection
+
+                                    this.user = user
+                                    this.tgUser = tgUser
+                                    this.setUser = setUser
+                                }
                             }
                         }
                     }

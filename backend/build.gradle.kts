@@ -15,6 +15,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.liquibase:liquibase-core")
     implementation("com.h2database:h2:2.3.232")
     implementation("commons-codec:commons-codec:1.17.1")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
