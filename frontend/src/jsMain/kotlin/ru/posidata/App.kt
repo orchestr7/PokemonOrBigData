@@ -16,6 +16,7 @@ import kotlinx.browser.window
 import react.router.dom.RouterProvider
 import react.router.dom.createBrowserRouter
 import ru.posidata.views.components.errorBoundary
+import ru.posidata.views.main.luckyDrawCard
 import ru.posidata.views.main.mainView
 
 
@@ -31,6 +32,11 @@ val App: FC<Props> = FC {
                 jso {
                     path = "/"
                     element = mainView.create()
+                    errorElement = errorBoundary.create()
+                },
+                jso {
+                    path = "/luckydraw"
+                    element = luckyDrawCard.create()
                     errorElement = errorBoundary.create()
                 }
             )

@@ -4,7 +4,6 @@ import js.objects.jso
 import kotlinx.browser.window
 import react.*
 import react.dom.html.ReactHTML.a
-import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h6
@@ -137,6 +136,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
 
                 +". ${if (props.tgUser == null) "Чтобы участвовать в розыгрыше и рейтинге - залогинься:" else ""}"
             }
+
 
             if (props.tgUser == null) {
                 TLoginButton {

@@ -15,7 +15,6 @@ import ru.posidata.common.UserForSerializationDTO
 import web.cssom.*
 
 val mainView = FC {
-
     Particles::class.react {
         id = "tsparticles"
         url = "${kotlinx.browser.window.location.origin}/particles.json"

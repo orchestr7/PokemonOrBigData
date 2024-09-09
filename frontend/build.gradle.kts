@@ -63,6 +63,7 @@ kotlin {
             implementation(npm("react-dom", "^18.0.0"))
             implementation(npm("react-modal", "^3.0.0"))
             implementation(npm("@popperjs/core", "2.11.8"))
+            implementation(npm("react-slot-counter", "3.0.1"))
             // ====== font awesome ======
             implementation(npm("@fortawesome/fontawesome-svg-core", "6.5.2"))
             implementation(npm("@fortawesome/free-solid-svg-icons", "6.5.2"))

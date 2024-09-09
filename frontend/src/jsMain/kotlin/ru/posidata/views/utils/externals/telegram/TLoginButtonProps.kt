@@ -1,5 +1,4 @@
 @file:JsModule("react-telegram-auth")
-@file:JsNonModule
 
 package ru.posidata.views.utils.externals.telegram
 

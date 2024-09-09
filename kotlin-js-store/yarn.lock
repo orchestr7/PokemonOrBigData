@@ -2877,6 +2877,11 @@ react-router@6.23.1, react-router@^6.23.1:
   dependencies:
     "@remix-run/router" "1.16.1"
 
+react-slot-counter@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-slot-counter/-/react-slot-counter-3.0.1.tgz#7b2becdbea1f8c83eb754371d1bd65b287ef3648"
+  integrity sha512-+NwzRrZ+zWErP/8nz+0Y/imtOcMDr1A2Gv8CfzXNRW/zXaxNPMpZQdWeJAX/HiSqaeGc+jxKqKscoMN101NYDg==
+
 react-telegram-auth@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-telegram-auth/-/react-telegram-auth-1.0.4.tgz#76443a3930497de7ab03a24d791e03aeeac47a5c"

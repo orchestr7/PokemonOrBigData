@@ -25,7 +25,7 @@ class UserService(private val userRepository: UserRepository) {
             val value = userRepository.findByUsername(username)
             if (value != null) {
                 value.updateResultIn(value.currentGameNumber(), isNextRound)
-                return userRepository.save(value)
+                return userRepository.saveAndFlush(value)
             } else {
                 println("Not able to find $username in DB")
                 return null
@@ -34,5 +34,11 @@ class UserService(private val userRepository: UserRepository) {
             println("Tried to update user with null username")
             return null
         }
+    }
+
+    fun getRandomUser(): OurUserEntityFromDb {
+        val userCount = userRepository.count().toInt()
+        val users = userRepository.findAll().random()
+        return users
     }
 }
