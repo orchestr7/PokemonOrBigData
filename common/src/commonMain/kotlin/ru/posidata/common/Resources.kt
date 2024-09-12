@@ -39,6 +39,7 @@ enum class Resources(
     FEEBAS(22, "A Water-type Pokémon that is often seen as unattractive, but evolves into the beautiful Milotic.", POKEMON),
 
     // BigData
+    // phase 1
     HADOOP(23, "Framework that allows for the distributed processing of large data sets across clusters using programming models.", BIG_DATA),
     FLINK(24, "A stream processing framework that processes data in real time and is known for its low-latency performance.", BIG_DATA),
     HIVE(25, "A data warehouse infrastructure built on top of Hadoop, enabling users to perform queries on large datasets.", BIG_DATA),
@@ -60,7 +61,18 @@ enum class Resources(
     ARVADOS(41, "An open-source platform for managing and analyzing large-scale genomic and biomedical data.", BIG_DATA),
     GEODE(42, "An open-source, distributed data management platform designed for high performance real-time data access and analytics.", BIG_DATA),
     ADABAS(43, "A high-performance, transactional database management system designed to handle large volumes of data.", BIG_DATA),
-    ICEBERG(44, "An open table format for large analytic datasets that enables high-performance reads/writes and supports schema evolution.", BIG_DATA)    ;
+    ICEBERG(44, "An open table format for large analytic datasets that enables high-performance reads/writes and supports schema evolution.", BIG_DATA),
+    // phase 2
+    KUDU(45, "A distributed, columnar storage engine optimized for fast analytics on large datasets, designed for integration with Hadoop.", BIG_DATA),
+    DRUID(46, "A real-time analytics database designed for fast slice-and-dice queries on large, high-dimensional data.", BIG_DATA),
+    LUIGI(47, "A Python-based workflow management system used to build complex pipelines of batch jobs.", BIG_DATA),
+    MILVUS(48, "An open-source vector database designed to manage, search, and index massive embedding vectors.", BIG_DATA),
+    WEAVIATE(49, "An open-source vector search engine and graph database designed for machine learning and semantic search.", BIG_DATA),
+    PAIMON(50, "A high-performance streaming table store for large-scale real-time data processing.", BIG_DATA),
+    DORIS(51, "An MPP-based interactive SQL data warehouse that provides sub-second query responses on large datasets.", BIG_DATA),
+    LANCE(52, "A data format and query engine designed for fast machine learning and analytics workflows with efficient version control.", BIG_DATA),
+    NIMBLE(53, "A lightweight, flexible, and scalable in-memory computing platform designed for real-time analytics.", BIG_DATA);
+    ;
 
     companion object {
         fun getById(i: Int): Resources = Resources.entries.find { it.id == i }!!

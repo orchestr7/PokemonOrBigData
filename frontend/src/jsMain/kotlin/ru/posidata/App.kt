@@ -33,11 +33,6 @@ val App: FC<Props> = FC {
                     path = "/"
                     element = mainView.create()
                     errorElement = errorBoundary.create()
-                },
-                jso {
-                    path = "/luckydraw"
-                    element = luckyDrawCard.create()
-                    errorElement = errorBoundary.create()
                 }
             )
         )
@@ -46,7 +41,6 @@ val App: FC<Props> = FC {
 
 fun main() {
     /* Workaround for issue: https://youtrack.jetbrains.com/issue/KT-31888 */
-    @Suppress("UnsafeCastFromDynamic")
     if (window.asDynamic().__karma__) {
         return
     }
@@ -54,8 +48,6 @@ fun main() {
     kotlinext.js.require<dynamic>("../scss/app.scss")
     // this is needed for webpack to include bootstrap
     kotlinext.js.require<dynamic>("bootstrap")
-    /*    ReactModal.setAppElement(document.getElementById("wrapper") as HTMLElement)  // required for accessibility in react-modal */
-
     val mainDiv = document.getElementById("wrapper") as HTMLElement
     createRoot(mainDiv).render(App.create())
 }

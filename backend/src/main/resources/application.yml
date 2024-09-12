@@ -22,8 +22,11 @@ spring:
                 servlet:
                   SecurityAutoConfiguration
 
-
 server:
   port : 8081
 
+telegram:
+  bot:
+    token:
+      12345:mybottesttoken
 

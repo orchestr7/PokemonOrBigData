@@ -2,8 +2,6 @@ package ru.posidata.views.main
 
 import js.objects.jso
 import react.*
-import react.dom.html.ReactHTML
-import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import ru.posidata.common.Answer.NONE
 import ru.posidata.common.Selection
@@ -16,8 +14,6 @@ import ru.posidata.common.UserForSerializationDTO
 import web.cssom.*
 
 val mainView = FC {
-    val (luckyDraw, setLuckyDraw) = useState(false)
-
     Particles::class.react {
         id = "tsparticles"
         url = "${kotlinx.browser.window.location.origin}/particles.json"
@@ -31,137 +27,94 @@ val mainView = FC {
     val (user, setUser) = useState<UserForSerializationDTO?>(null)
     val (tgUser, setTgUser) = useState<UserDataFromTelegram?>(null)
 
-    if (!luckyDraw) {
+    div {
+        className = ClassName("full-width-container")
         div {
-            className = ClassName("full-width-container")
+            className = ClassName("row justify-content-center align-items-center")
+            style = jso {
+                minHeight = "100vh".unsafeCast<MinHeight>()
+            }
+
             div {
-                className = ClassName("row justify-content-center align-items-center")
+                id = "back"
+                className = ClassName("card col-xl-4 col-lg-5 col-md-7 col-sm-8 col-12")
                 style = jso {
-                    minHeight = "100vh".unsafeCast<MinHeight>()
+                    minHeight = "80vh".unsafeCast<MinHeight>()
+                    borderRadius = "40px 40px 40px 40px".unsafeCast<BorderRadius>()
+                    boxShadow = "10px 10px 20px rgba(0, 0, 0, 0.5)".unsafeCast<BoxShadow>()
                 }
 
+                headerRow {}
+
                 div {
-                    id = "back"
-                    className = ClassName("card col-xl-4 col-lg-5 col-md-7 col-sm-8 col-12")
+                    className = ClassName("row justify-content-center text-white mt-3 ")
                     style = jso {
-                        minHeight = "80vh".unsafeCast<MinHeight>()
-                        borderRadius = "40px 40px 40px 40px".unsafeCast<BorderRadius>()
-                        boxShadow = "10px 10px 20px rgba(0, 0, 0, 0.5)".unsafeCast<BoxShadow>()
+                        zIndex = "1000".unsafeCast<ZIndex>()
+                        minHeight = "53vh".unsafeCast<MinHeight>()
+                        display = Display.flex
                     }
 
-                    headerRow {}
-
-                    div {
-                        className = ClassName("row justify-content-center text-white mt-3 ")
-                        style = jso {
-                            zIndex = "1000".unsafeCast<ZIndex>()
-                            minHeight = "53vh".unsafeCast<MinHeight>()
-                            display = Display.flex
-                        }
-                        if (user != null && user.gameNumber() == 4) {
-                            ReactHTML.h6 {
-                                className = ClassName("mb-2 text-white mx-2")
-                                +"Ты отыграл уже три раза, в рейтинге участвовать больше не получится, обнови страницу если хочешь просто пройти тест. Твои результаты:"
-
-                            }
-                            ReactHTML.h6 {
-                                className = ClassName("mb-2 text-center")
-                                style = jso {
-                                    color = "yellow".unsafeCast<Color>()
-                                }
-                                +"${user.firstGameScore}/12"
-                            }
-                            ReactHTML.h6 {
-                                className = ClassName("mb-2 text-center")
-                                style = jso {
-                                    color = "yellow".unsafeCast<Color>()
-                                }
-                                +"${user.firstGameScore}/12"
-                            }
-                            ReactHTML.h6 {
-                                className = ClassName("mb-2 text-center")
-                                style = jso {
-                                    color = "yellow".unsafeCast<Color>()
-                                }
-                                +"${user.thirdGameScore}/12"
-                            }
-                        } else {
-                            when (selection) {
-                                Selection.NONE -> {
-                                    welcomeCard {
-                                        this.setSelection = setSelection
-                                        this.setUser = setUser
-                                        this.tgUser = tgUser
-                                        this.setTgUser = setTgUser
-                                    }
-                                }
-
-                                QUESTION -> questionCard {
-                                    this.counter = counter
-                                    this.setCounter = setCounter
-                                    this.answers = answers
-                                    this.setAnswers = setAnswers
-                                    this.setPokemonId = setPokemonId
-                                    this.pokemonId = pokemonId
-                                    this.setSelection = setSelection
-                                    this.uniqueRandom = uniqueRandom
-                                    this.setUniqueRandom = setUniqueRandom
-
-                                    this.user = user
-                                    this.tgUser = tgUser
-                                    this.setUser = setUser
-                                }
-
-                                ANSWER -> {
-                                    answerCard {
-                                        this.setSelection = setSelection
-                                        this.counter = counter
-                                        this.pokemonId = pokemonId
-                                        this.answers = answers
-                                    }
-                                }
-
-                                RESULTS -> {
-                                    resultCard {
-                                        this.counter = counter
-                                        this.answers = answers
-                                        this.setSelection = setSelection
-                                        this.setCounter = setCounter
-                                        this.setAnswers = setAnswers
-                                        this.setUniqueRandom = setUniqueRandom
-                                        this.setSelection = setSelection
-
-                                        this.user = user
-                                        this.tgUser = tgUser
-                                        this.setUser = setUser
-                                    }
-                                }
+                    when (selection) {
+                        Selection.NONE -> {
+                            welcomeCard {
+                                this.setSelection = setSelection
+                                this.setUser = setUser
+                                this.tgUser = tgUser
+                                this.setTgUser = setTgUser
                             }
                         }
-                    }
 
-                    if (selection != Selection.NONE) {
-                        progressBar {
+                        QUESTION -> questionCard {
                             this.counter = counter
-                            this.selection = selection
+                            this.setCounter = setCounter
                             this.answers = answers
+                            this.setAnswers = setAnswers
+                            this.setPokemonId = setPokemonId
+                            this.pokemonId = pokemonId
+                            this.setSelection = setSelection
+                            this.uniqueRandom = uniqueRandom
+                            this.setUniqueRandom = setUniqueRandom
+
+                            this.user = user
+                            this.tgUser = tgUser
+                            this.setUser = setUser
+                        }
+
+                        ANSWER -> {
+                            answerCard {
+                                this.setSelection = setSelection
+                                this.counter = counter
+                                this.pokemonId = pokemonId
+                                this.answers = answers
+                            }
+                        }
+
+                        RESULTS -> {
+                            resultCard {
+                                this.counter = counter
+                                this.answers = answers
+                                this.setSelection = setSelection
+                                this.setCounter = setCounter
+                                this.setAnswers = setAnswers
+                                this.setUniqueRandom = setUniqueRandom
+                                this.setSelection = setSelection
+
+                                this.user = user
+                                this.tgUser = tgUser
+                                this.setUser = setUser
+                            }
                         }
                     }
+                }
 
-                    button {
-                        className = ClassName("btn btn-outline-info btn-lg")
-                        onClick = {
-                            setLuckyDraw(true)
-                        }
-                        +"Розыгрыш"
+                if (selection != Selection.NONE) {
+                    progressBar {
+                        this.counter = counter
+                        this.selection = selection
+                        this.answers = answers
                     }
                 }
             }
         }
-    } else {
-        luckyDrawCard {
-
-        }
     }
 }
-

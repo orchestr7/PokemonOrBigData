@@ -38,41 +38,11 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                 response.ok -> {
                     props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
                 }
-                else -> window.alert("Failed to validate with telegram")
+                else -> window.alert("Failed to authorize you with telegram")
             }
         }
         props.setSelection(Selection.QUESTION)
     }
-
-    // just a small test
-/*
-    div {
-        button {
-            onClick = {
-                console.log(props.tgUser)
-                getUser()
-            }
-        }
-    }
-
-    div {
-        button {
-            onClick = {
-                val feUser = UserDataFromTelegram(
-                    authDate = 1725741859,
-                    firstName = "Андрей",
-                    lastName = "Кулешов",
-                    hash = "4a8cb14838a9797d8994bf73ac9734e3fd634a5abec5be7371f83737d1dc82e8",
-                    id = 221298772,
-                    photoUrl = "https://t.me/i/userpic/320/d3fKyG306aXHDBCxZXfWTpGlii6fZqZMo1tBmMPEl_E.jpg",
-                    username = "akuleshov7",
-                )
-                props.setTgUser(feUser)
-            }
-        }
-    }
-*/
-
 
     div {
         className = ClassName("row justify-content-center mt-1 px-0")
@@ -92,7 +62,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                     display = "inline".unsafeCast<Display>()
                     color = "rgb(0, 206, 224)".unsafeCast<Color>()
                 }
-                +" или "
+                +" or "
             }
             h1 {
                 style = jso {
@@ -104,34 +74,31 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
             }
 
             h6 {
-                // (https://docs.google.com/a/octo.com/forms/d/1kckcq_uv8dk9-W5rIdtqRwCHN4Uh209ELPUjTEZJDxc/viewform)
-                // (https://github.com/pixelastic/pokemonorbigdata)
                 className = ClassName("mt-3 mb-3 text-start")
-                +("Шуточный тест из 12 вопросов, сделаный за пару ночей, чтобы показать " +
-                        "насколько большой зоопарк из названий образовался в дате. " +
-                        "Изначальная идея родилась "
+                +("A humorous test of 12 questions, made over a couple of nights to show just how large a zoo of names " +
+                        "has formed in the Big Data world. The original idea was born "
                         )
                 a {
                     href =
                         "https://docs.google.com/forms/d/e/1FAIpQLScRsfRHXPTuEXdNvUcI8DzJIU5iazqlpksWucPF0d8l2ztkkA/viewform"
                     className = ClassName("text-info")
-                    +"тут"
+                    +"here"
                 }
 
-                +" и "
+                +" and "
 
                 a {
                     href = "https://pixelastic.github.io/pokemonorbigdata/"
                     className = ClassName("text-info")
-                    +"тут"
+                    +"here"
                 }
 
-                +" Иходный код этого сайта открыт "
+                +" The source code of this site can be found on the "
 
                 a {
                     href = "https://github.com/orchestr7/PokemonOrBigData"
                     className = ClassName("text-info")
-                    +"здесь"
+                    +"GitHub"
                 }
 
                 +". ${if (props.tgUser == null) "Чтобы участвовать в розыгрыше и рейтинге - залогинься:" else ""}"
