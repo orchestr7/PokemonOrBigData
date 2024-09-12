@@ -38,6 +38,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                 response.ok -> {
                     props.setUser(response.decodeFromJsonString<UserForSerializationDTO>())
                 }
+
                 else -> window.alert("Failed to authorize you with telegram")
             }
         }
@@ -75,7 +76,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
 
             h6 {
                 className = ClassName("mt-3 mb-3 text-start")
-                +("A humorous test of 12 questions, made over a couple of nights to show just how large a zoo of names " +
+                +("A humorous test of 12 questions, made over a couple of nights to illustrate how large a zoo of names " +
                         "has formed in the Big Data world. The original idea was born "
                         )
                 a {
@@ -93,7 +94,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                     +"here"
                 }
 
-                +" The source code of this site can be found on the "
+                +". The source code of this site can be found on the "
 
                 a {
                     href = "https://github.com/orchestr7/PokemonOrBigData"
@@ -101,14 +102,14 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                     +"GitHub"
                 }
 
-                +". ${if (props.tgUser == null) "Чтобы участвовать в розыгрыше и рейтинге - залогинься:" else ""}"
+                +". ${if (props.tgUser == null) "If you wish to share your results - you can register with Telegram using the button below:" else ""}"
             }
 
 
             if (props.tgUser == null) {
                 TLoginButton {
                     botName = "PosiDataBot"
-                    buttonSize = "large"
+                    buttonSize = "small"
                     redirectUrl = null
                     cornerRadius = 15.0
                     requestAccess = "write"
@@ -135,17 +136,28 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
                     style = jso {
                         color = "yellow".unsafeCast<Color>()
                     }
-                    +"Привет, ${props.tgUser?.username}! Теперь ты участвуешь в розыгрыше на SmartData. Если захочешь просто поиграть - обнови страницу."
+                    +"Hello, ${props.tgUser?.username}! Now your results are being recorded, if you don't want this - just refresh the page."
                 }
             }
 
             img {
                 className =
-                    ClassName("animate__animated animate__shakeX mt-1 border border-info border-5 img-glow3 mb-3")
-                src = "img/pokemonVSBigData.jpeg"
+                    ClassName("mt-1 mb-2")
+                src = "img/pokemon-vs-data.jpeg"
                 style = jso {
                     width = "100%".unsafeCast<Width>()
-                    borderRadius = "20px 20px 20px 20px".unsafeCast<BorderRadius>()
+                    borderRadius = "2px 2px 2px 2px".unsafeCast<BorderRadius>()
+                    boxShadow = "10px 10px 20px rgba(0, 0, 0, 0.5)".unsafeCast<BoxShadow>()
+                }
+            }
+
+            img {
+                className =
+                    ClassName("animate__animated animate__shakeX border border-info border-4 img-glow3 mb-3")
+                src = if (props.tgUser == null) "img/lets-start.png" else "img/lets-start-registered.png"
+                style = jso {
+                    width = "100%".unsafeCast<Width>()
+                    borderRadius = "15px 15px 15px 15px".unsafeCast<BorderRadius>()
                     boxShadow = "10px 10px 20px rgba(0, 0, 0, 0.5)".unsafeCast<BoxShadow>()
                     cursor = "pointer".unsafeCast<Cursor>()
                 }

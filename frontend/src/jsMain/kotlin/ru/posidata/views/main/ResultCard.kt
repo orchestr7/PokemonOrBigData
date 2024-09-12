@@ -26,7 +26,7 @@ import web.cssom.*
 
 val resultCard = FC<ResultProps> { props ->
     val correctAnswers = props.answers.count { it == CORRECT }
-    var (loading, setLoading) = useState(true)
+    val (loading, setLoading) = useState(true)
 
     val updateRound = useDeferredRequest {
         if (props.tgUser != null) {
@@ -66,13 +66,15 @@ val resultCard = FC<ResultProps> { props ->
             h1 {
                 className = ClassName("text-center")
                 style = jso {
+                    fontSize = 50.unsafeCast<FontSize>()
                     color = "yellow".unsafeCast<Color>()
                     display = "inline".unsafeCast<Display>()
                 }
                 +"$correctAnswers"
             }
-            h2 {
+            h1 {
                 style = jso {
+                    fontSize = 35.unsafeCast<FontSize>()
                     color = "white".unsafeCast<Color>()
                     display = "inline".unsafeCast<Display>()
                 }
@@ -80,10 +82,10 @@ val resultCard = FC<ResultProps> { props ->
             }
 
             val textMeme = when (correctAnswers) {
-                in 0..4 -> Pair("А ты точно пришел на SmartData?", "areyousure.png")
-                in 5..8 -> Pair("Тебе надо поисследовать мир Даты (и Покемонов)", "choose-you.webp")
-                in 9..11 -> Pair("Ты хорош, но не идеален", "choose-you.webp")
-                12 -> Pair("Я выбираю тебя!", "choose-you.webp")
+                in 0..4 -> Pair("Are you related to IT?", "areyousure.png")
+                in 5..8 -> Pair("You need to learn more about the world of Data (and Pokemons)", "end.jpeg")
+                in 9..11 -> Pair("You are good, but not the best", "end.jpeg")
+                12 -> Pair("I choose you!", "choose-you.webp")
                 else -> Pair("", "")
             }
 
@@ -121,7 +123,7 @@ val resultCard = FC<ResultProps> { props ->
                         props.setUniqueRandom(listOf())
                         updateRound()
                     }
-                    +"Еще раз!"
+                    +"Once more!"
                 }
             }
             div {

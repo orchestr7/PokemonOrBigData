@@ -36,7 +36,7 @@ val answerCard = FC<AnswerProps> { props ->
                     style = jso {
                         display = "inline".unsafeCast<Display>()
                     }
-                    +"${pokemon.getName()} - это "
+                    +"${pokemon.getName()} - is from "
                 }
                 h2 {
                     style = jso {
@@ -44,7 +44,7 @@ val answerCard = FC<AnswerProps> { props ->
                         color = "yellow".unsafeCast<Color>()
                         display = "inline".unsafeCast<Display>()
                     }
-                    +(if (pokemon.type == BIG_DATA) "из БигДаты!" else "Pokémon!")
+                    +(if (pokemon.type == BIG_DATA) "BigData!" else "Pokémon!")
                 }
             }
         }
@@ -94,12 +94,12 @@ val answerCard = FC<AnswerProps> { props ->
                     className = ClassName("btn btn-outline-info")
 
                     if (props.counter < props.answers.size) {
-                        +"Следующий вопрос"
+                        +"Next question"
                         onClick = {
                             props.setSelection(QUESTION)
                         }
                     } else {
-                        +"Результаты"
+                        +"Your results"
                         onClick = {
                             props.setSelection(RESULTS)
                         }

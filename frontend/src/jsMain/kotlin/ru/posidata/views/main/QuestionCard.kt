@@ -151,7 +151,7 @@ val questionCard = FC<QuestionCard> { props ->
                             display = "inline".unsafeCast<Display>()
                             color = "rgb(0, 206, 224)".unsafeCast<Color>()
                         }
-                        +" или "
+                        +" or "
                     }
                     h1 {
                         onClick = {
