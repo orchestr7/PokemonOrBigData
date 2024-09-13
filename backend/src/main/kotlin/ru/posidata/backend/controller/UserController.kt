@@ -74,7 +74,6 @@ class UserController(
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
 
-        val responseUser = userService.updateGameRound(user.username, isNextRound)
-        return ResponseEntity.status(HttpStatus.OK).body(responseUser?.toDTO())
+        return ResponseEntity.status(HttpStatus.OK).body("")
     }
 }

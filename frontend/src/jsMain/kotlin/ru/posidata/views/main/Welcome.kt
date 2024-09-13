@@ -153,7 +153,7 @@ val welcomeCard = FC<WelcomeCardProps> { props ->
 
             img {
                 className =
-                    ClassName("animate__animated animate__shakeX border border-info border-4 img-glow3 mb-3")
+                    ClassName("animate__animated animate__shakeX border border-info border-2 img-glow3 mb-3")
                 src = if (props.tgUser == null) "img/lets-start.png" else "img/lets-start-registered.png"
                 style = jso {
                     width = "100%".unsafeCast<Width>()
