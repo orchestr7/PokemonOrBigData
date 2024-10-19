@@ -34,7 +34,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: serial_number
+                  name: round_number
                   type: INT
                   constraints:
                     nullable: false

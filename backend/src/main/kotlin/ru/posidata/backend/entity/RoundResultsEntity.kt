@@ -9,7 +9,7 @@ class RoundResultsEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
 
-    var serialNumber: Int,
+    var roundNumber: Int,
     var result: Int,
 
     @ManyToOne
@@ -23,7 +23,7 @@ class RoundResultsEntity(
         other as RoundResultsEntity
 
         if (id != other.id) return false
-        if (serialNumber != other.serialNumber) return false
+        if (roundNumber != other.roundNumber) return false
         if (result != other.result) return false
         if (user != other.user) return false
 
@@ -32,7 +32,7 @@ class RoundResultsEntity(
 
     override fun hashCode(): Int {
         var result1 = id.hashCode()
-        result1 = 31 * result1 + serialNumber.hashCode()
+        result1 = 31 * result1 + roundNumber.hashCode()
         result1 = 31 * result1 + result.hashCode()
         result1 = 31 * result1 + user.hashCode()
         return result1
