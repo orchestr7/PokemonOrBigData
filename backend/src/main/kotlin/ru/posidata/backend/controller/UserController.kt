@@ -18,59 +18,31 @@ class UserController(
 ) {
     @GetMapping("/get")
     fun getResults(
-        @RequestParam authDate: Long,
-        @RequestParam firstName: String,
-        @RequestParam lastName: String,
-        @RequestParam hash: String,
-        @RequestParam id: Long,
-        @RequestParam photoUrl: String,
-        @RequestParam username: String,
+        userDataFromTelegram: UserDataFromTelegram,
     ): ResponseEntity<Any> {
-        val user = UserDataFromTelegram(
-            authDate = authDate,
-            firstName = firstName,
-            lastName = lastName,
-            hash = hash,
-            id = id,
-            photoUrl = photoUrl,
-            username = username,
-        )
-        println("Received a request to get results from $user. Converted to map: ${user.convertToMap()}")
 
-        if(!telegramAuthService.isValidHash(user.convertToMap(), user.hash)) {
-            println("Validation unsuccessful for ${user.username}")
+        println("Received a request to get results from $userDataFromTelegram. Converted to map: ${userDataFromTelegram.convertToMap()}")
+
+        if(!telegramAuthService.isValidHash(userDataFromTelegram.convertToMap(), userDataFromTelegram.hash)) {
+            println("Validation unsuccessful for ${userDataFromTelegram.username}")
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
 
-        println("Validation successful for ${user.username}")
+        println("Validation successful for ${userDataFromTelegram.username}")
 
-        val responseUser = userService.findOrCreateUser(user)
+        val responseUser = userService.findOrCreateUser(userDataFromTelegram)
         return ResponseEntity.status(HttpStatus.OK).body(responseUser.toDTO())
     }
 
     @GetMapping("/update")
     fun submitAnswer(
-        @RequestParam authDate: Long,
-        @RequestParam firstName: String,
-        @RequestParam lastName: String,
-        @RequestParam hash: String,
-        @RequestParam id: Long,
-        @RequestParam photoUrl: String,
-        @RequestParam username: String,
-        @RequestParam isNextRound: Boolean
+        userDataFromTelegram: UserDataFromTelegram,
     ): ResponseEntity<Any> {
-        val user = UserDataFromTelegram(
-            authDate = authDate,
-            firstName = firstName,
-            lastName = lastName,
-            hash = hash,
-            id = id,
-            photoUrl = photoUrl,
-            username = username,
-        )
-        println("Received a request to get results from $user. Converted to map: ${user.convertToMap()}")
 
-        if(!telegramAuthService.isValidHash(user.convertToMap(), user.hash)) {
+        println("Received a request to get results from $userDataFromTelegram. " +
+                "Converted to map: ${userDataFromTelegram.convertToMap()}")
+
+        if(!telegramAuthService.isValidHash(userDataFromTelegram.convertToMap(), userDataFromTelegram.hash)) {
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
 
