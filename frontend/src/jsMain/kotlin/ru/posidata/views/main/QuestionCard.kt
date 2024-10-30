@@ -19,17 +19,17 @@ import kotlin.random.Random
 
 val questionCard = FC<QuestionCard> { props ->
     useEffectOnce {
-        var randomNumber = Random.nextInt(0, Resources.entries.size)
+        var randomNumber = Random.nextInt(0, Resource.entries.size)
         while (true) {
             if (!props.uniqueRandom.contains(randomNumber)) {
                 props.setUniqueRandom(props.uniqueRandom + randomNumber)
                 props.setPokemonId(randomNumber)
                 break
             }
-            randomNumber = Random.nextInt(0, Resources.entries.size)
+            randomNumber = Random.nextInt(0, Resource.entries.size)
         }
     }
-    val pokemon = Resources.getById(props.pokemonId)
+    val pokemon = Resource.getById(props.pokemonId)
 
     val updateResult = useDeferredRequest {
         if (props.tgUser != null) {

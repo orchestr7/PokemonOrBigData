@@ -3,6 +3,7 @@ package ru.posidata.backend.controller
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import ru.posidata.backend.entity.UserEntityFromDb
 import ru.posidata.backend.service.UserService
 import ru.posidata.common.RoundResult
 import ru.posidata.common.UserDataFromTelegram
@@ -41,6 +42,29 @@ class TestController(
                 "blabla",
             )
         )
+        println("${a?.map { RoundResult(it.roundNumber, it.result) }}")
         return ResponseEntity.status(HttpStatus.OK).body(a?.map { RoundResult(it.roundNumber, it.result) })
+    }
+
+    @GetMapping("/test3")
+    fun nextRound(): ResponseEntity<Any> {
+        val a = userService.getResultsByUser(
+            UserDataFromTelegram(
+                1234567,
+                "a",
+                "a",
+                "",
+                123,
+                "",
+                "blabla",
+            )
+        )
+        println("======")
+        return ResponseEntity.status(HttpStatus.OK).body(a?.map { RoundResult(it.roundNumber, it.result) })
+    }
+
+    @GetMapping("/test4")
+    fun randomUser(): String? {
+        return userService.getRandomUser().username
     }
 }

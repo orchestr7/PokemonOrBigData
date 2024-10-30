@@ -8,7 +8,7 @@ enum class ResourceType {
     BIG_DATA,
 }
 
-enum class Resources(
+enum class Resource(
     val id: Int,
     val description: String,
     val type: ResourceType,
@@ -75,8 +75,8 @@ enum class Resources(
     ;
 
     companion object {
-        fun getById(i: Int): Resources = Resources.entries.find { it.id == i }!!
-        fun getByName(name: String): Resources? = Resources.entries.find { it.name.uppercase() == name }
+        fun getById(i: Int): Resource = Resource.entries.find { it.id == i }!!
+        fun getByName(name: String): Resource? = Resource.entries.find { it.name.uppercase() == name }
     }
 
     fun getName(): String {

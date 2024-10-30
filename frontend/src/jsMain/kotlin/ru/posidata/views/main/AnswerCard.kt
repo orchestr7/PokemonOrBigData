@@ -12,7 +12,7 @@ import react.dom.html.ReactHTML.img
 import react.useState
 import ru.posidata.common.ResourceType.BIG_DATA
 import ru.posidata.common.ResourceType.POKEMON
-import ru.posidata.common.Resources
+import ru.posidata.common.Resource
 import ru.posidata.common.Answer
 import ru.posidata.common.Selection
 import ru.posidata.common.Selection.QUESTION
@@ -22,7 +22,7 @@ import web.cssom.*
 val answerCard = FC<AnswerProps> { props ->
     var (loading, setLoading) = useState(true)
 
-    val pokemon = Resources.getById(props.pokemonId)
+    val pokemon = Resource.getById(props.pokemonId)
     div {
         style = jso {
             display = (if (loading) "none" else "block").unsafeCast<Display>()

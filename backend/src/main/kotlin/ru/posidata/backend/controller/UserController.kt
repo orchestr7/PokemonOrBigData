@@ -5,8 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ru.posidata.backend.service.TelegramAuthService
 import ru.posidata.backend.service.UserService
-import ru.posidata.common.ResourceType
-import ru.posidata.common.Resources
+import ru.posidata.common.QuestionAndAnswer
 import ru.posidata.common.UserDataFromTelegram
 
 
@@ -17,7 +16,7 @@ class UserController(
     private val userService: UserService
 ) {
     @GetMapping("/get")
-    fun getResults(
+    fun createAndReturnUser(
         userDataFromTelegram: UserDataFromTelegram,
     ): ResponseEntity<Any> {
 
@@ -34,9 +33,16 @@ class UserController(
         return ResponseEntity.status(HttpStatus.OK).body(responseUser.toDTO())
     }
 
+    @GetMapping("/again")
+    fun tryAgainNextRound(): ResponseEntity<Any> {
+        // TODO: add logic for incrementing to next round
+        return ResponseEntity.status(HttpStatus.OK).body("")
+    }
+
     @GetMapping("/update")
     fun submitAnswer(
         userDataFromTelegram: UserDataFromTelegram,
+        questionAndAnswer: QuestionAndAnswer
     ): ResponseEntity<Any> {
 
         println("Received a request to get results from $userDataFromTelegram. " +
@@ -45,6 +51,9 @@ class UserController(
         if(!telegramAuthService.isValidHash(userDataFromTelegram.convertToMap(), userDataFromTelegram.hash)) {
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
+
+        // TODO: add logic for checking questionAndAnswer
+        // and incrementing result
 
         return ResponseEntity.status(HttpStatus.OK).body("")
     }
