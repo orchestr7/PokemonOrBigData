@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class QuestionAndAnswer(
-    val answer: ResourceType,
-    val question: Resource
+    val pokemonTypeAnswer: PokemonType,
+    val questionId: Int
 )

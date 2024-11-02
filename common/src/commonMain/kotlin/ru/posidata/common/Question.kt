@@ -1,17 +1,17 @@
 package ru.posidata.common
 
-import ru.posidata.common.ResourceType.POKEMON
-import ru.posidata.common.ResourceType.BIG_DATA
+import ru.posidata.common.PokemonType.POKEMON
+import ru.posidata.common.PokemonType.BIG_DATA
 
-enum class ResourceType {
+enum class PokemonType {
     POKEMON,
     BIG_DATA,
 }
 
-enum class Resource(
+enum class Question(
     val id: Int,
     val description: String,
-    val type: ResourceType,
+    val pokemonType: PokemonType,
 ) {
     // Pokemons
     EEVEE(0, "A Normal-type Pokémon known for its ability to evolve into multiple different forms.", POKEMON),
@@ -75,8 +75,8 @@ enum class Resource(
     ;
 
     companion object {
-        fun getById(i: Int): Resource = Resource.entries.find { it.id == i }!!
-        fun getByName(name: String): Resource? = Resource.entries.find { it.name.uppercase() == name }
+        fun getById(i: Int): Question = Question.entries.find { it.id == i }!!
+        fun getByName(name: String): Question? = Question.entries.find { it.name.uppercase() == name }
     }
 
     fun getName(): String {

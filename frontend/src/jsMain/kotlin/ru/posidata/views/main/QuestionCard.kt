@@ -10,8 +10,8 @@ import ru.posidata.common.*
 import ru.posidata.common.Answer.WRONG
 import ru.posidata.common.Answer.CORRECT
 import ru.posidata.common.Selection.ANSWER
-import ru.posidata.common.ResourceType.BIG_DATA
-import ru.posidata.common.ResourceType.POKEMON
+import ru.posidata.common.PokemonType.BIG_DATA
+import ru.posidata.common.PokemonType.POKEMON
 import ru.posidata.views.components.neonLightingText
 import ru.posidata.views.utils.internals.*
 import web.cssom.*
@@ -19,17 +19,17 @@ import kotlin.random.Random
 
 val questionCard = FC<QuestionCard> { props ->
     useEffectOnce {
-        var randomNumber = Random.nextInt(0, Resource.entries.size)
+        var randomNumber = Random.nextInt(0, Question.entries.size)
         while (true) {
             if (!props.uniqueRandom.contains(randomNumber)) {
                 props.setUniqueRandom(props.uniqueRandom + randomNumber)
                 props.setPokemonId(randomNumber)
                 break
             }
-            randomNumber = Random.nextInt(0, Resource.entries.size)
+            randomNumber = Random.nextInt(0, Question.entries.size)
         }
     }
-    val pokemon = Resource.getById(props.pokemonId)
+    val pokemon = Question.getById(props.pokemonId)
 
     val updateResult = useDeferredRequest {
         if (props.tgUser != null) {
@@ -87,7 +87,7 @@ val questionCard = FC<QuestionCard> { props ->
                         // FixMe: Duplication
                         props.setSelection(ANSWER)
                         props.setCounter(props.counter + 1)
-                        if (pokemon.type == BIG_DATA) {
+                        if (pokemon.pokemonType == BIG_DATA) {
                             updateResult()
                             props.answers[props.counter] = CORRECT
                         } else {
@@ -111,7 +111,7 @@ val questionCard = FC<QuestionCard> { props ->
                         // FixMe: Duplication
                         props.setSelection(ANSWER)
                         props.setCounter(props.counter + 1)
-                        if (pokemon.type == POKEMON) {
+                        if (pokemon.pokemonType == POKEMON) {
                             updateResult()
                             props.answers[props.counter] = CORRECT
                         } else {
@@ -131,7 +131,7 @@ val questionCard = FC<QuestionCard> { props ->
                             // FixMe: Duplication
                             props.setSelection(ANSWER)
                             props.setCounter(props.counter + 1)
-                            if (pokemon.type == BIG_DATA) {
+                            if (pokemon.pokemonType == BIG_DATA) {
                                 props.answers[props.counter] = CORRECT
                             } else {
                                 props.answers[props.counter] = WRONG
@@ -158,7 +158,7 @@ val questionCard = FC<QuestionCard> { props ->
                             // FixMe: Duplication
                             props.setSelection(ANSWER)
                             props.setCounter(props.counter + 1)
-                            if (pokemon.type == POKEMON) {
+                            if (pokemon.pokemonType == POKEMON) {
                                 props.answers[props.counter] = CORRECT
                             } else {
                                 props.answers[props.counter] = WRONG

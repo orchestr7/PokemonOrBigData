@@ -59,12 +59,29 @@ class TestController(
                 "blabla",
             )
         )
-        println("======")
         return ResponseEntity.status(HttpStatus.OK).body(a?.map { RoundResult(it.roundNumber, it.result) })
     }
 
     @GetMapping("/test4")
     fun randomUser(): String? {
         return userService.getRandomUser().username
+    }
+
+    @GetMapping("/test5")
+    fun incrementResult(): ResponseEntity<Any> {
+        val a = UserDataFromTelegram(
+                1234567,
+                "a",
+                "a",
+                "",
+                123,
+                "",
+                "blabla",
+            )
+
+        val userEntityFromDb = userService.getUserByUserName(a) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
+        userService.updateResultsForUser(userEntityFromDb)
+
+        return ResponseEntity.status(HttpStatus.OK).body("")
     }
 }

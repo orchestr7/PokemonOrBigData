@@ -10,9 +10,9 @@ import react.dom.html.ReactHTML.h2
 import react.dom.html.ReactHTML.h6
 import react.dom.html.ReactHTML.img
 import react.useState
-import ru.posidata.common.ResourceType.BIG_DATA
-import ru.posidata.common.ResourceType.POKEMON
-import ru.posidata.common.Resource
+import ru.posidata.common.PokemonType.BIG_DATA
+import ru.posidata.common.PokemonType.POKEMON
+import ru.posidata.common.Question
 import ru.posidata.common.Answer
 import ru.posidata.common.Selection
 import ru.posidata.common.Selection.QUESTION
@@ -22,7 +22,7 @@ import web.cssom.*
 val answerCard = FC<AnswerProps> { props ->
     var (loading, setLoading) = useState(true)
 
-    val pokemon = Resource.getById(props.pokemonId)
+    val pokemon = Question.getById(props.pokemonId)
     div {
         style = jso {
             display = (if (loading) "none" else "block").unsafeCast<Display>()
@@ -44,7 +44,7 @@ val answerCard = FC<AnswerProps> { props ->
                         color = "yellow".unsafeCast<Color>()
                         display = "inline".unsafeCast<Display>()
                     }
-                    +(if (pokemon.type == BIG_DATA) "BigData!" else "Pokémon!")
+                    +(if (pokemon.pokemonType == BIG_DATA) "BigData!" else "Pokémon!")
                 }
             }
         }
@@ -60,8 +60,8 @@ val answerCard = FC<AnswerProps> { props ->
                     className = ClassName("col-8")
                     img {
                         src = "img/" +
-                                "${if (pokemon.type == POKEMON) "pokemons" else "bigdata"}/" +
-                                "${pokemon.name}-min.${if (pokemon.type == POKEMON) "jpeg" else "png"}"
+                                "${if (pokemon.pokemonType == POKEMON) "pokemons" else "bigdata"}/" +
+                                "${pokemon.name}-min.${if (pokemon.pokemonType == POKEMON) "jpeg" else "png"}"
                         style = jso {
                             width = "100%".unsafeCast<Width>()
                             borderRadius = "40px 40px 40px 40px".unsafeCast<BorderRadius>()

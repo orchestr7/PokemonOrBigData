@@ -13,6 +13,7 @@ class UserEntityFromDb(
     var lastName: String?,
     var username: String?,
     @OneToMany(
+        fetch = FetchType.LAZY,
         mappedBy = "user",
         cascade = [CascadeType.ALL],
         orphanRemoval = true

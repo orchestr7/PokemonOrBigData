@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*
 import ru.posidata.backend.service.TelegramAuthService
 import ru.posidata.backend.service.UserService
 import ru.posidata.common.QuestionAndAnswer
+import ru.posidata.common.Question
 import ru.posidata.common.UserDataFromTelegram
 
 
@@ -39,9 +40,11 @@ class UserController(
         return ResponseEntity.status(HttpStatus.OK).body("")
     }
 
-    @GetMapping("/update")
+    @PutMapping("/update")
     fun submitAnswer(
+        @RequestBody
         userDataFromTelegram: UserDataFromTelegram,
+        @RequestBody
         questionAndAnswer: QuestionAndAnswer
     ): ResponseEntity<Any> {
 
@@ -52,8 +55,11 @@ class UserController(
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
 
-        // TODO: add logic for checking questionAndAnswer
-        // and incrementing result
+        val userEntityFromDb = userService.getUserByUserName(userDataFromTelegram) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
+
+        if (Question.getById(questionAndAnswer.questionId).pokemonType == questionAndAnswer.pokemonTypeAnswer) {
+            userService.updateResultsForUser(userEntityFromDb)
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("")
     }
