@@ -34,12 +34,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: round_number
+                  name: result
                   type: INT
                   constraints:
                     nullable: false
               - column:
-                  name: result
+                  name: current_question
                   type: INT
                   constraints:
                     nullable: false

@@ -3,7 +3,6 @@ package ru.posidata.backend.controller
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import ru.posidata.backend.entity.UserEntityFromDb
 import ru.posidata.backend.service.UserService
 import ru.posidata.common.RoundResult
 import ru.posidata.common.UserDataFromTelegram
@@ -31,7 +30,7 @@ class TestController(
 
     @GetMapping("/test2")
     fun getResults(): ResponseEntity<Any> {
-        val a = userService.getResultsByUser(
+        val test = userService.getResultsByUser(
             UserDataFromTelegram(
                 1234567,
                 "a",
@@ -42,13 +41,12 @@ class TestController(
                 "blabla",
             )
         )
-        println("${a?.map { RoundResult(it.roundNumber, it.result) }}")
-        return ResponseEntity.status(HttpStatus.OK).body(a?.map { RoundResult(it.roundNumber, it.result) })
+        return ResponseEntity.status(HttpStatus.OK).body(test?.mapIndexed { i, v -> RoundResult(i, v.result) })
     }
 
     @GetMapping("/test3")
     fun nextRound(): ResponseEntity<Any> {
-        val a = userService.getResultsByUser(
+        val test = userService.getResultsByUser(
             UserDataFromTelegram(
                 1234567,
                 "a",
@@ -59,7 +57,7 @@ class TestController(
                 "blabla",
             )
         )
-        return ResponseEntity.status(HttpStatus.OK).body(a?.map { RoundResult(it.roundNumber, it.result) })
+        return ResponseEntity.status(HttpStatus.OK).body(test?.mapIndexed { i, v -> RoundResult(i, v.result) })
     }
 
     @GetMapping("/test4")
@@ -69,7 +67,7 @@ class TestController(
 
     @GetMapping("/test5")
     fun incrementResult(): ResponseEntity<Any> {
-        val a = UserDataFromTelegram(
+        val test = UserDataFromTelegram(
                 1234567,
                 "a",
                 "a",
@@ -79,9 +77,28 @@ class TestController(
                 "blabla",
             )
 
-        val userEntityFromDb = userService.getUserByUserName(a) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
-        userService.updateResultsForUser(userEntityFromDb)
+        val userEntityFromDb = userService.getUserByUserName(test) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
+        userService.updateResultsForUser(userEntityFromDb, true)
 
         return ResponseEntity.status(HttpStatus.OK).body("")
+    }
+
+    @GetMapping("/test6")
+    fun nextRoundTest(): ResponseEntity<Any> {
+        val test = UserDataFromTelegram(
+            1234567,
+            "a",
+            "a",
+            "",
+            123,
+            "",
+            "blabla",
+        )
+
+        val userEntityFromDb = userService.getUserByUserName(test) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
+
+        userService.nextRound(userEntityFromDb)
+        return ResponseEntity.status(HttpStatus.OK).body("")
+
     }
 }

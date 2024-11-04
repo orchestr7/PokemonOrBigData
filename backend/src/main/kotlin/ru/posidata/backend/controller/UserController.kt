@@ -11,55 +11,60 @@ import ru.posidata.common.UserDataFromTelegram
 
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("user")
 class UserController(
     private val telegramAuthService: TelegramAuthService,
     private val userService: UserService
 ) {
-    @GetMapping("/get")
+    @GetMapping("/new")
     fun createAndReturnUser(
         userDataFromTelegram: UserDataFromTelegram,
     ): ResponseEntity<Any> {
-
-        println("Received a request to get results from $userDataFromTelegram. Converted to map: ${userDataFromTelegram.convertToMap()}")
-
-        if(!telegramAuthService.isValidHash(userDataFromTelegram.convertToMap(), userDataFromTelegram.hash)) {
+        if (!telegramAuthService.isValidHash(userDataFromTelegram)) {
             println("Validation unsuccessful for ${userDataFromTelegram.username}")
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
-
-        println("Validation successful for ${userDataFromTelegram.username}")
 
         val responseUser = userService.findOrCreateUser(userDataFromTelegram)
         return ResponseEntity.status(HttpStatus.OK).body(responseUser.toDTO())
     }
 
-    @GetMapping("/again")
-    fun tryAgainNextRound(): ResponseEntity<Any> {
-        // TODO: add logic for incrementing to next round
-        return ResponseEntity.status(HttpStatus.OK).body("")
-    }
-
-    @PutMapping("/update")
+    @PutMapping("/answer")
     fun submitAnswer(
         @RequestBody
         userDataFromTelegram: UserDataFromTelegram,
         @RequestBody
         questionAndAnswer: QuestionAndAnswer
     ): ResponseEntity<Any> {
+        if (!telegramAuthService.isValidHash(userDataFromTelegram)) {
+            println("Validation unsuccessful for ${userDataFromTelegram.username}")
+            return ResponseEntity(HttpStatus.FORBIDDEN)
+        }
 
-        println("Received a request to get results from $userDataFromTelegram. " +
-                "Converted to map: ${userDataFromTelegram.convertToMap()}")
+        val userEntityFromDb =
+            userService.getUserByUserName(userDataFromTelegram) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
 
-        if(!telegramAuthService.isValidHash(userDataFromTelegram.convertToMap(), userDataFromTelegram.hash)) {
+        userService.updateResultsForUser(
+            userEntityFromDb,
+            Question.getById(questionAndAnswer.questionId).pokemonType == questionAndAnswer.pokemonTypeAnswer
+        )
+
+        return ResponseEntity.status(HttpStatus.OK).body("")
+    }
+
+    @PutMapping("/again")
+    fun tryAgainNewRound(
+        @RequestBody
+        userDataFromTelegram: UserDataFromTelegram,
+    ): ResponseEntity<Any> {
+        if (!telegramAuthService.isValidHash(userDataFromTelegram)) {
+            println("Validation unsuccessful for ${userDataFromTelegram.username}")
             return ResponseEntity(HttpStatus.FORBIDDEN)
         }
 
         val userEntityFromDb = userService.getUserByUserName(userDataFromTelegram) ?: return ResponseEntity(HttpStatus.FORBIDDEN)
 
-        if (Question.getById(questionAndAnswer.questionId).pokemonType == questionAndAnswer.pokemonTypeAnswer) {
-            userService.updateResultsForUser(userEntityFromDb)
-        }
+        userService.nextRound(userEntityFromDb)
 
         return ResponseEntity.status(HttpStatus.OK).body("")
     }
